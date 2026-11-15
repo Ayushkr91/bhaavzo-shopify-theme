@@ -8,7 +8,7 @@
 
     <div class="categories-grid">
       {% for block in section.blocks %}
-        <a href="{{ block.settings.link }}" class="category-card" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="category-card" {{ block.shopify_attributes }}>
           <div class="category-card__icon-wrap">
             <span>{{ block.settings.icon }}</span>
           </div>
@@ -69,8 +69,7 @@
         {
           "type": "url",
           "id": "link",
-          "label": "Category Link",
-          "default": "/collections/gadgets"
+          "label": "Category Link"
         }
       ]
     }
@@ -82,8 +81,7 @@
         "settings": {
           "icon": "⚡",
           "title": "Smart Gadgets",
-          "items_count": "Tech problem-solvers",
-          "link": "/collections/gadgets"
+          "items_count": "Tech problem-solvers"
         }
       },
       {
@@ -91,8 +89,7 @@
         "settings": {
           "icon": "🍳",
           "title": "Kitchen Utility",
-          "items_count": "Time-saving kitchen tools",
-          "link": "/collections/kitchen"
+          "items_count": "Time-saving kitchen tools"
         }
       },
       {
@@ -100,8 +97,7 @@
         "settings": {
           "icon": "📦",
           "title": "Home Organisation",
-          "items_count": "Space-saving tidying aids",
-          "link": "/collections/home-organisation"
+          "items_count": "Space-saving tidying aids"
         }
       },
       {
@@ -109,8 +105,7 @@
         "settings": {
           "icon": "💡",
           "title": "Lighting & Cleaning",
-          "items_count": "Automatic LEDs & helpers",
-          "link": "/collections/lighting"
+          "items_count": "Automatic LEDs & helpers"
         }
       }
     ]
