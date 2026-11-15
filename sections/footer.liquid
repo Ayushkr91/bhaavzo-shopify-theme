@@ -10,10 +10,10 @@
         </div>
         <p class="footer-col__text">
           <strong>Sahi Bhaav. Smart Ghar.</strong><br>
-          Bhaavzo curates practical, problem-solving smart gadgets and home utility essentials that save Indian families time, space, and effort every day.
+          {{ section.settings.about_text | default: 'Bhaavzo curates practical, problem-solving smart gadgets and home utility essentials that save Indian families time, space, and effort every day.' }}
         </p>
         <div style="display: flex; gap: 10px; margin-top: 14px;">
-          <a href="https://wa.me/919876543210" target="_blank" class="btn btn--primary btn--sm" style="font-size: 0.8rem; padding: 6px 14px;">
+          <a href="{{ section.settings.whatsapp_url | default: 'https://wa.me/919876543210' }}" target="_blank" class="btn btn--primary btn--sm" style="font-size: 0.8rem; padding: 6px 14px;">
             💬 WhatsApp Us
           </a>
         </div>
@@ -21,25 +21,39 @@
 
       <!-- Col 2: Categories -->
       <div class="footer-col">
-        <h4 class="footer-col__title">Top Categories</h4>
+        <h4 class="footer-col__title">{{ section.settings.col2_title | default: 'Top Categories' }}</h4>
         <div class="footer-links">
-          <a href="/collections/gadgets" class="footer-link">Smart Gadgets</a>
-          <a href="/collections/kitchen" class="footer-link">Kitchen Utility</a>
-          <a href="/collections/home-organisation" class="footer-link">Home Organisation</a>
-          <a href="/collections/lighting" class="footer-link">Lighting & Cleaning</a>
-          <a href="/collections/all" class="footer-link">All Products</a>
+          {% assign col2_menu = linklists[section.settings.col2_menu] %}
+          {% if col2_menu != blank and col2_menu.links.size > 0 %}
+            {% for link in col2_menu.links %}
+              <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="{{ routes.collections_url }}/gadgets" class="footer-link">Smart Gadgets</a>
+            <a href="{{ routes.collections_url }}/kitchen" class="footer-link">Kitchen Utility</a>
+            <a href="{{ routes.collections_url }}/home-organisation" class="footer-link">Home Organisation</a>
+            <a href="{{ routes.collections_url }}/lighting" class="footer-link">Lighting & Cleaning</a>
+            <a href="{{ routes.all_products_collection_url }}" class="footer-link">All Products</a>
+          {% endif %}
         </div>
       </div>
 
       <!-- Col 3: Customer Care & Policies -->
       <div class="footer-col">
-        <h4 class="footer-col__title">Policies & Trust</h4>
+        <h4 class="footer-col__title">{{ section.settings.col3_title | default: 'Policies & Trust' }}</h4>
         <div class="footer-links">
-          <a href="/pages/shipping-policy" class="footer-link">Shipping Policy (COD)</a>
-          <a href="/pages/refund-policy" class="footer-link">7-Day Returns & Replacement</a>
-          <a href="/pages/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/pages/terms" class="footer-link">Terms of Service</a>
-          <a href="/pages/contact" class="footer-link">Track Your Order</a>
+          {% assign col3_menu = linklists[section.settings.col3_menu] %}
+          {% if col3_menu != blank and col3_menu.links.size > 0 %}
+            {% for link in col3_menu.links %}
+              <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="/pages/shipping-policy" class="footer-link">Shipping Policy</a>
+            <a href="/pages/refund-policy" class="footer-link">7-Day Replacement Policy</a>
+            <a href="/pages/privacy-policy" class="footer-link">Privacy Policy</a>
+            <a href="/pages/terms" class="footer-link">Terms of Service</a>
+            <a href="/pages/contact" class="footer-link">Track Your Order</a>
+          {% endif %}
         </div>
       </div>
 
@@ -48,15 +62,15 @@
         <h4 class="footer-col__title">Get In Touch</h4>
         <div class="footer-contact-item">
           <span>📍</span>
-          <span>Bhaavzo Technologies India Pvt Ltd, Mumbai, Maharashtra 400001</span>
+          <span>{{ section.settings.address | default: 'Bhaavzo Retail, Mumbai, Maharashtra 400001' }}</span>
         </div>
         <div class="footer-contact-item">
           <span>📞</span>
-          <span>WhatsApp / Helpline: +91 98765 43210</span>
+          <span>{{ section.settings.helpline | default: 'Helpline: +91 98765 43210' }}</span>
         </div>
         <div class="footer-contact-item">
           <span>✉️</span>
-          <span>support@bhaavzo.com</span>
+          <span>{{ section.settings.email | default: 'support@bhaavzo.com' }}</span>
         </div>
         <div class="footer-contact-item">
           <span>⏰</span>
@@ -75,7 +89,9 @@
         <span class="payment-badge">RuPay</span>
         <span class="payment-badge">Visa</span>
         <span class="payment-badge">Mastercard</span>
-        <span class="payment-badge" style="background-color: var(--color-accent); color: white;">Cash On Delivery (COD)</span>
+        {% if section.settings.show_cod_badge %}
+          <span class="payment-badge" style="background-color: var(--color-accent); color: white;">Cash On Delivery (COD)</span>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -86,10 +102,62 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "About Brand Text",
+      "default": "Bhaavzo curates practical, problem-solving smart gadgets and home utility essentials that save Indian families time, space, and effort every day."
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_url",
+      "label": "WhatsApp Support URL",
+      "default": "https://wa.me/919876543210"
+    },
+    {
       "type": "text",
-      "id": "copyright_text",
-      "label": "Copyright Text",
-      "default": "Bhaavzo. All rights reserved."
+      "id": "col2_title",
+      "label": "Column 2 Title",
+      "default": "Top Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "col2_menu",
+      "label": "Column 2 Menu"
+    },
+    {
+      "type": "text",
+      "id": "col3_title",
+      "label": "Column 3 Title",
+      "default": "Policies & Trust"
+    },
+    {
+      "type": "link_list",
+      "id": "col3_menu",
+      "label": "Column 3 Menu"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Business Address",
+      "default": "Bhaavzo Retail, Mumbai, Maharashtra 400001"
+    },
+    {
+      "type": "text",
+      "id": "helpline",
+      "label": "Helpline Contact",
+      "default": "Helpline: +91 98765 43210"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Support Email",
+      "default": "support@bhaavzo.com"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cod_badge",
+      "label": "Show COD Payment Badge",
+      "default": true
     }
   ]
 }

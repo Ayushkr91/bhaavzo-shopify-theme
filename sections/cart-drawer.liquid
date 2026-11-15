@@ -6,7 +6,7 @@
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <path d="M16 10a4 4 0 0 1-8 0"></path>
       </svg>
-      Your Smart Cart
+      Your Shopping Cart
     </h3>
     <button class="cart-drawer__close" aria-label="Close cart">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -16,71 +16,94 @@
     </button>
   </div>
 
-  <!-- Free Shipping Progress Indicator -->
+  <!-- Free Shipping Progress Indicator (Threshold ₹999) -->
   <div class="free-shipping-meter">
     <div class="free-shipping-text">
       <span>🚚</span>
-      <span>Add <strong>₹350</strong> more for <strong>FREE Delivery</strong>!</span>
+      <span>Add more to qualify for <strong>FREE Delivery</strong>!</span>
     </div>
     <div class="free-shipping-bar">
-      <div class="free-shipping-progress" style="width: 65%;"></div>
+      <div class="free-shipping-progress" style="width: 0%;"></div>
     </div>
   </div>
 
-  <!-- Items list (populated by client JS / Liquid) -->
+  <!-- Items list (Dynamically synced with Shopify Server Cart via /cart.js) -->
   <div class="cart-drawer__items">
-    <!-- Cart items injected via cart-drawer.js -->
+    <div style="text-align: center; padding: 48px 16px; color: var(--color-text-muted);">
+      <div style="font-size: 3rem; margin-bottom: 12px;">🛒</div>
+      <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--color-primary); margin-bottom: 6px;">Loading your cart...</h4>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--sm" style="display: inline-flex;">Explore Catalog</a>
+    </div>
   </div>
 
-  <!-- Recommended Add-on / Cross-sell -->
-  <div style="padding: 12px 20px; background: #FFF9F5; border-top: 1px dashed var(--color-border); border-bottom: 1px dashed var(--color-border);">
-    <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; margin-bottom: 6px;">
-      💡 Recommended Home Add-on
-    </div>
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=100&q=80" style="width: 36px; height: 36px; border-radius: 4px; object-fit: cover;" alt="Night light">
-        <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary); line-height: 1.2;">
-          Motion Sensor Night Light<br>
-          <span style="color: var(--color-accent); font-weight: 700;">₹499</span>
+  {% if section.settings.show_cross_sell and section.settings.cross_sell_product != blank %}
+    {% assign cross_product = all_products[section.settings.cross_sell_product] %}
+    {% if cross_product != blank and cross_product.available %}
+      <div style="padding: 12px 20px; background: #FFF9F5; border-top: 1px dashed var(--color-border); border-bottom: 1px dashed var(--color-border);">
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; margin-bottom: 6px;">
+          💡 Recommended Utility Add-on
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            {% if cross_product.featured_image %}
+              <img
+                src="{{ cross_product.featured_image | image_url: width: 100 }}"
+                style="width: 36px; height: 36px; border-radius: 4px; object-fit: cover;"
+                alt="{{ cross_product.title | escape }}"
+                width="36"
+                height="36"
+                loading="lazy"
+              >
+            {% endif %}
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary); line-height: 1.2;">
+              {{ cross_product.title | truncate: 28 }}<br>
+              <span style="color: var(--color-accent); font-weight: 700;">{{ cross_product.price | money }}</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn--outline-accent btn--sm js-add-to-cart"
+            style="padding: 4px 10px; font-size: 0.75rem; min-height: 30px;"
+            data-variant-id="{{ cross_product.selected_or_first_available_variant.id }}"
+            data-id="{{ cross_product.selected_or_first_available_variant.id }}"
+          >
+            + Add
+          </button>
         </div>
       </div>
-      <button
-        class="btn btn--outline-accent btn--sm js-add-to-cart"
-        style="padding: 4px 10px; font-size: 0.75rem; min-height: 30px;"
-        data-id="motion-sensor-night-light-warm"
-        data-handle="motion-sensor-night-light"
-        data-title="Smart Motion Sensor Light"
-        data-price="499"
-        data-variant="Warm White 3000K"
-        data-image="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400&q=80"
-      >
-        + Add
-      </button>
-    </div>
-  </div>
+    {% endif %}
+  {% endif %}
 
-  <!-- Cart Footer / Native Checkout CTA -->
+  <!-- Cart Footer / Native Checkout Form -->
   <div class="cart-drawer__footer">
     <div class="cart-subtotal-row">
       <span class="cart-subtotal-label">Subtotal:</span>
-      <span class="cart-subtotal-amount">₹1,299</span>
+      <span class="cart-subtotal-amount">₹0</span>
     </div>
     <div style="font-size: 0.78rem; color: var(--color-text-muted); margin-bottom: 14px;">
-      Taxes included. Shipping calculated at checkout (Free above ₹999).
+      Taxes included. Standard courier shipping calculated at checkout.
     </div>
 
-    <!-- Retaining Shopify's native checkout route (/checkout) -->
-    <a href="/checkout" class="btn btn--primary btn--full btn--lg" style="text-transform: uppercase; letter-spacing: 0.04em;">
-      🔒 Proceed to Checkout
-    </a>
+    <!-- Native Shopify checkout form submitting to /cart with name="checkout" -->
+    <form action="{{ routes.cart_url }}" method="post" id="cart-drawer-checkout-form">
+      <button
+        type="submit"
+        name="checkout"
+        class="btn btn--primary btn--full btn--lg"
+        style="text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; border: none;"
+      >
+        🔒 Proceed to Checkout
+      </button>
+    </form>
 
     <div class="cart-trust-pills">
-      <span>🛡️ 100% Secure Checkout</span>
+      <span>🛡️ 256-Bit SSL Checkout</span>
       <span>•</span>
-      <span>💵 Cash on Delivery</span>
-      <span>•</span>
-      <span>🔄 7-Day Returns</span>
+      <span>🚚 All-India Delivery</span>
+      {% if section.settings.show_cod_pill %}
+        <span>•</span>
+        <span>💵 COD on Eligible PINs</span>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -93,6 +116,17 @@
       "type": "checkbox",
       "id": "show_cross_sell",
       "label": "Show Recommended Product",
+      "default": false
+    },
+    {
+      "type": "product",
+      "id": "cross_sell_product",
+      "label": "Recommended Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cod_pill",
+      "label": "Show Cash on Delivery Trust Pill",
       "default": true
     }
   ]

@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="page-width header-container">
     <div class="header__left">
-      <button class="header__menu-toggle" aria-label="Toggle navigation menu">
+      <button class="header__menu-toggle" aria-label="Toggle navigation menu" type="button">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -9,7 +9,7 @@
         </svg>
       </button>
 
-      <a href="/" class="header__logo">
+      <a href="{{ routes.root_url }}" class="header__logo">
         <span class="header__logo-text">
           Bhaav<span>zo</span>
         </span>
@@ -17,36 +17,45 @@
       </a>
     </div>
 
-    <!-- Desktop Navigation Links -->
+    <!-- Desktop Navigation Links (Configurable via Theme Editor Menu) -->
     <nav class="header__nav" aria-label="Main navigation">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/collections/gadgets" class="nav-link">Gadgets</a>
-      <a href="/collections/kitchen" class="nav-link">Kitchen Utility</a>
-      <a href="/collections/home-organisation" class="nav-link">Home Organisation</a>
-      <a href="/collections/lighting" class="nav-link">Lighting & Cleaning</a>
-      <a href="/pages/about" class="nav-link">About Us</a>
-      <a href="/collections/all" class="nav-link nav-link--badge">
-        Hot Deals
-        <span class="tag">50% OFF</span>
-      </a>
+      {% assign nav_menu = linklists[section.settings.menu] %}
+      {% if nav_menu != blank and nav_menu.links.size > 0 %}
+        {% for link in nav_menu.links %}
+          <a href="{{ link.url }}" class="nav-link {% if link.active %}active{% endif %}">
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      {% else %}
+        <a href="{{ routes.root_url }}" class="nav-link">Home</a>
+        <a href="{{ routes.collections_url }}/gadgets" class="nav-link">Gadgets</a>
+        <a href="{{ routes.collections_url }}/kitchen" class="nav-link">Kitchen Utility</a>
+        <a href="{{ routes.collections_url }}/home-organisation" class="nav-link">Home Organisation</a>
+        <a href="{{ routes.collections_url }}/lighting" class="nav-link">Lighting & Cleaning</a>
+        <a href="/pages/about" class="nav-link">About Us</a>
+        <a href="{{ routes.all_products_collection_url }}" class="nav-link nav-link--badge">
+          Deals
+          <span class="tag">Special</span>
+        </a>
+      {% endif %}
     </nav>
 
     <!-- Header Actions (Search, Cart) -->
     <div class="header__actions">
-      <a href="/collections/all" class="header-action-btn" title="Explore Products">
+      <a href="{{ routes.search_url }}" class="header-action-btn" title="Search Products" aria-label="Search Products">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </a>
 
-      <button class="header-action-btn cart-trigger-btn" aria-label="Shopping Cart">
+      <button type="button" class="header-action-btn cart-trigger-btn" aria-label="Shopping Cart">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
-        <span class="cart-count-badge">1</span>
+        <span class="cart-count-badge" style="display: none;">0</span>
       </button>
     </div>
   </div>
@@ -55,10 +64,10 @@
 <!-- Mobile Navigation Drawer -->
 <div class="mobile-nav-drawer">
   <div class="mobile-nav__header">
-    <a href="/" class="header__logo">
+    <a href="{{ routes.root_url }}" class="header__logo">
       <span class="header__logo-text">Bhaav<span>zo</span></span>
     </a>
-    <button class="mobile-nav__close" aria-label="Close navigation menu">
+    <button type="button" class="mobile-nav__close" aria-label="Close navigation menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -67,28 +76,34 @@
   </div>
 
   <div class="mobile-nav__body">
-    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 12px; letter-spacing: 0.05em;">Categories</div>
+    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 12px; letter-spacing: 0.05em;">Menu</div>
     <ul class="mobile-nav__list">
-      <li><a href="/" class="mobile-nav__link">🏠 Home</a></li>
-      <li><a href="/collections/gadgets" class="mobile-nav__link">⚡ Smart Gadgets</a></li>
-      <li><a href="/collections/kitchen" class="mobile-nav__link">🍳 Kitchen Utility</a></li>
-      <li><a href="/collections/home-organisation" class="mobile-nav__link">📦 Home Organisation</a></li>
-      <li><a href="/collections/lighting" class="mobile-nav__link">💡 Lighting & Cleaning</a></li>
-      <li><a href="/collections/all" class="mobile-nav__link" style="color: var(--color-accent); font-weight: 700;">🔥 Deal of the Day (50% Off)</a></li>
+      {% if nav_menu != blank and nav_menu.links.size > 0 %}
+        {% for link in nav_menu.links %}
+          <li><a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a></li>
+        {% endfor %}
+      {% else %}
+        <li><a href="{{ routes.root_url }}" class="mobile-nav__link">🏠 Home</a></li>
+        <li><a href="{{ routes.collections_url }}/gadgets" class="mobile-nav__link">⚡ Smart Gadgets</a></li>
+        <li><a href="{{ routes.collections_url }}/kitchen" class="mobile-nav__link">🍳 Kitchen Utility</a></li>
+        <li><a href="{{ routes.collections_url }}/home-organisation" class="mobile-nav__link">📦 Home Organisation</a></li>
+        <li><a href="{{ routes.collections_url }}/lighting" class="mobile-nav__link">💡 Lighting & Cleaning</a></li>
+        <li><a href="{{ routes.all_products_collection_url }}" class="mobile-nav__link" style="color: var(--color-accent); font-weight: 700;">🔥 Deals & Offers</a></li>
+      {% endif %}
     </ul>
 
-    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-top: 24px; margin-bottom: 12px; letter-spacing: 0.05em;">Information</div>
+    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-top: 24px; margin-bottom: 12px; letter-spacing: 0.05em;">Customer Service</div>
     <ul class="mobile-nav__list">
       <li><a href="/pages/about" class="mobile-nav__link">About Bhaavzo</a></li>
       <li><a href="/pages/contact" class="mobile-nav__link">Customer Support</a></li>
-      <li><a href="/pages/shipping-policy" class="mobile-nav__link">Shipping & COD</a></li>
+      <li><a href="/pages/shipping-policy" class="mobile-nav__link">Shipping & Delivery</a></li>
       <li><a href="/pages/refund-policy" class="mobile-nav__link">Returns & Refunds</a></li>
     </ul>
   </div>
 
   <div class="mobile-nav__footer">
-    <div style="font-size: 0.85rem; font-weight: 600; color: var(--color-primary); margin-bottom: 4px;">Need help with your order?</div>
-    <div style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 12px;">WhatsApp Support: +91 98765 43210</div>
+    <div style="font-size: 0.85rem; font-weight: 600; color: var(--color-primary); margin-bottom: 4px;">Need help with an order?</div>
+    <div style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 12px;">{{ section.settings.support_phone | default: 'Helpline: +91 98765 43210' }}</div>
     <a href="https://wa.me/919876543210" target="_blank" class="btn btn--primary btn--sm btn--full">Chat on WhatsApp</a>
   </div>
 </div>
@@ -100,10 +115,22 @@
   "name": "Header",
   "settings": [
     {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    },
+    {
       "type": "text",
       "id": "tagline_text",
       "label": "Brand Tagline",
       "default": "Sahi Bhaav. Smart Ghar."
+    },
+    {
+      "type": "text",
+      "id": "support_phone",
+      "label": "Support Phone Text",
+      "default": "Helpline: +91 98765 43210"
     }
   ]
 }

@@ -3,23 +3,28 @@
     <div class="section-header">
       <div class="section-tagline">{{ section.settings.tagline | default: 'Top Rated by Customers' }}</div>
       <h2 class="section-title">{{ section.settings.title | default: 'Bhaavzo Best Sellers' }}</h2>
-      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Our most loved smart gadgets and home utility essentials with over 20,000+ satisfied buyers.' }}</p>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Practical home and smart utility essentials carefully selected for modern Indian households.' }}</p>
     </div>
 
     <div class="product-grid">
-      {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
-        {% render 'product-card', product_card_product: product %}
-      {% else %}
-        {% comment %} Fallback to sample products if collection is empty in preview {% endcomment %}
-        {% for sample in section.settings.sample_products %}
-          {% render 'product-card', product_card_product: sample %}
+      {% if section.settings.collection != blank and collections[section.settings.collection].products.size > 0 %}
+        {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+          {% render 'product-card', product_card_product: product %}
         {% endfor %}
-      {% endfor %}
+      {% else %}
+        {% for product in collections.all.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product_card_product: product %}
+        {% else %}
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--color-text-muted);">
+            Products will appear here once added to this collection.
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
 
     <div style="text-align: center; margin-top: 40px;">
-      <a href="/collections/all" class="btn btn--outline btn--lg">
-        Explore All Best Sellers ({{ collections.all.products_count | default: 8 }} Products)
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--outline btn--lg">
+        Explore All Products
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
@@ -49,7 +54,7 @@
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "Our most loved smart gadgets and home utility essentials with over 20,000+ satisfied buyers."
+      "default": "Practical home and smart utility essentials carefully selected for modern Indian households."
     },
     {
       "type": "collection",

@@ -1,77 +1,97 @@
+{% assign deal_prod = all_products[section.settings.deal_product] %}
+{% assign deal_variant = deal_prod.selected_or_first_available_variant %}
+
 <section class="deal-section">
   <div class="page-width">
     <div class="deal-card">
       <div class="deal-grid">
         <div class="deal-info">
           <div class="deal__badge">
-            <span>⚡ {{ section.settings.badge | default: 'Flash Deal of the Day' }}</span>
+            <span>⚡ {{ section.settings.badge | default: 'Featured Deal' }}</span>
           </div>
 
-          <h2 class="deal__title">{{ section.settings.title | default: 'Wireless Portable Blender (400ml)' }}</h2>
-          <p class="deal__desc">{{ section.settings.description | default: 'Equipped with 6 ultra-sharp 3D stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush ice, fresh fruits, and protein shakes on the go.' }}</p>
+          <h2 class="deal__title">
+            {% if deal_prod != blank %}
+              {{ deal_prod.title }}
+            {% else %}
+              {{ section.settings.title | default: 'Wireless Portable Blender (400ml)' }}
+            {% endif %}
+          </h2>
 
-          <!-- Real-time Countdown Timer -->
-          <div class="countdown-timer">
-            <div class="countdown-block">
-              <span id="timer-hours" class="countdown-num">08</span>
-              <span class="countdown-label">Hours</span>
-            </div>
-            <span class="countdown-colon">:</span>
-            <div class="countdown-block">
-              <span id="timer-mins" class="countdown-num">42</span>
-              <span class="countdown-label">Mins</span>
-            </div>
-            <span class="countdown-colon">:</span>
-            <div class="countdown-block">
-              <span id="timer-secs" class="countdown-num">19</span>
-              <span class="countdown-label">Secs</span>
-            </div>
-          </div>
-
-          <!-- Stock meter -->
-          <div class="stock-meter-wrap">
-            <div class="stock-meter-label">
-              <span>🔥 Hurry, limited units available at this price</span>
-              <span style="color: var(--color-accent); font-weight: 700;">Only 9 left in stock!</span>
-            </div>
-            <div class="stock-progress-bar">
-              <div class="stock-progress-fill" style="width: 82%;"></div>
-            </div>
-          </div>
+          <p class="deal__desc">
+            {% if deal_prod != blank and deal_prod.description != blank %}
+              {{ deal_prod.description | strip_html | truncate: 160 }}
+            {% else %}
+              {{ section.settings.description | default: 'Equipped with 6 ultra-sharp stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush fresh fruits and protein shakes on the go.' }}
+            {% endif %}
+          </p>
 
           <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px;">
-            <span style="font-size: 2rem; font-weight: 900; color: #FFFFFF;">₹1,499</span>
-            <span style="font-size: 1.2rem; color: #9FB3C8; text-decoration: line-through;">₹2,999</span>
-            <span class="badge badge--sale" style="font-size: 0.85rem;">50% OFF</span>
+            <span style="font-size: 2rem; font-weight: 900; color: #FFFFFF;">
+              {% if deal_variant != blank %}
+                {{ deal_variant.price | money }}
+              {% else %}
+                ₹1,499
+              {% endif %}
+            </span>
+            {% if deal_variant != blank and deal_variant.compare_at_price > deal_variant.price %}
+              <span style="font-size: 1.2rem; color: #9FB3C8; text-decoration: line-through;">
+                {{ deal_variant.compare_at_price | money }}
+              </span>
+              {% assign savings = deal_variant.compare_at_price | minus: deal_variant.price | times: 100 | divided_by: deal_variant.compare_at_price %}
+              <span class="badge badge--sale" style="font-size: 0.85rem;">{{ savings }}% OFF</span>
+            {% endif %}
           </div>
 
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button
-              class="btn btn--primary btn--lg js-add-to-cart"
-              data-id="portable-blender-pink"
-              data-handle="portable-blender"
-              data-title="Wireless Portable Blender (400ml)"
-              data-price="1499"
-              data-variant="Pastel Pink"
-              data-image="https://images.unsplash.com/photo-1570831739435-6601aa3fa4fb?auto=format&fit=crop&w=600&q=80"
-            >
-              ⚡ Grab This Deal (₹1,499)
-            </button>
-            <a href="/products/portable-blender" class="btn btn--outline" style="border-color: rgba(255,255,255,0.4); color: #FFFFFF;">
-              View Details
-            </a>
+            {% if deal_variant != blank and deal_variant.available %}
+              <button
+                type="button"
+                class="btn btn--primary btn--lg js-add-to-cart"
+                data-variant-id="{{ deal_variant.id }}"
+                data-id="{{ deal_variant.id }}"
+                data-quantity="1"
+              >
+                ⚡ Add Deal to Cart
+              </button>
+            {% elsif deal_prod != blank %}
+              <button type="button" class="btn btn--primary btn--lg" disabled="disabled" style="opacity: 0.6; cursor: not-allowed;">
+                Sold Out
+              </button>
+            {% else %}
+              <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--lg">
+                Explore Deals
+              </a>
+            {% endif %}
+
+            {% if deal_prod != blank %}
+              <a href="{{ deal_prod.url }}" class="btn btn--outline" style="border-color: rgba(255,255,255,0.4); color: #FFFFFF;">
+                View Details
+              </a>
+            {% endif %}
           </div>
         </div>
 
         <div class="deal-visual">
-          <img
-            src="https://images.unsplash.com/photo-1570831739435-6601aa3fa4fb?auto=format&fit=crop&w=600&q=80"
-            alt="Wireless Portable Blender"
-            class="deal-image"
-            loading="lazy"
-            width="500"
-            height="500"
-          >
+          {% if deal_prod != blank and deal_prod.featured_image %}
+            <img
+              src="{{ deal_prod.featured_image | image_url: width: 600 }}"
+              alt="{{ deal_prod.title | escape }}"
+              class="deal-image"
+              loading="lazy"
+              width="500"
+              height="500"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1570831739435-6601aa3fa4fb?auto=format&fit=crop&w=600&q=80"
+              alt="Wireless Portable Blender"
+              class="deal-image"
+              loading="lazy"
+              width="500"
+              height="500"
+            >
+          {% endif %}
         </div>
       </div>
     </div>
@@ -86,24 +106,24 @@
       "type": "text",
       "id": "badge",
       "label": "Badge Text",
-      "default": "Flash Deal of the Day"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Deal Title",
-      "default": "Wireless Portable Blender (400ml)"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Deal Description",
-      "default": "Equipped with 6 ultra-sharp 3D stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush ice, fresh fruits, and protein shakes on the go."
+      "default": "Featured Deal"
     },
     {
       "type": "product",
       "id": "deal_product",
       "label": "Featured Deal Product"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Fallback Deal Title",
+      "default": "Wireless Portable Blender (400ml)"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Fallback Deal Description",
+      "default": "Equipped with 6 ultra-sharp stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush fresh fruits and protein shakes on the go."
     }
   ],
   "presets": [

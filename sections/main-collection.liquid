@@ -8,39 +8,52 @@
   </div>
 
   <div class="page-width" style="padding-top: 24px; padding-bottom: 64px;">
-    <!-- Collection Toolbar: Filters & Sorting -->
-    <div class="collection-toolbar">
-      <div class="collection-filter-pills">
-        <a href="#" class="filter-pill active" data-category="all">All Products</a>
-        <a href="#" class="filter-pill" data-category="Gadgets">Gadgets</a>
-        <a href="#" class="filter-pill" data-category="Kitchen">Kitchen Utility</a>
-        <a href="#" class="filter-pill" data-category="Organisation">Home Organisation</a>
-        <a href="#" class="filter-pill" data-category="Lighting">Lighting</a>
-        <a href="#" class="filter-pill" data-category="Cleaning">Cleaning</a>
+    {% paginate collection.products by section.settings.products_per_page %}
+      <!-- Collection Toolbar: Filters & Sorting -->
+      <div class="collection-toolbar">
+        <div class="collection-filter-pills">
+          <a href="{{ routes.all_products_collection_url }}" class="filter-pill {% if collection.handle == 'all' %}active{% endif %}">All Products</a>
+          <a href="{{ routes.collections_url }}/gadgets" class="filter-pill {% if collection.handle == 'gadgets' %}active{% endif %}">Gadgets</a>
+          <a href="{{ routes.collections_url }}/kitchen" class="filter-pill {% if collection.handle == 'kitchen' %}active{% endif %}">Kitchen Utility</a>
+          <a href="{{ routes.collections_url }}/home-organisation" class="filter-pill {% if collection.handle == 'home-organisation' %}active{% endif %}">Home Organisation</a>
+          <a href="{{ routes.collections_url }}/lighting" class="filter-pill {% if collection.handle == 'lighting' %}active{% endif %}">Lighting</a>
+          <a href="{{ routes.collections_url }}/cleaning" class="filter-pill {% if collection.handle == 'cleaning' %}active{% endif %}">Cleaning</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <label for="collection-sort" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Sort By:</label>
+          <select id="collection-sort" class="sort-select" onchange="location.href = location.pathname + '?sort_by=' + this.value;">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            <option value="manual" {% if sort_by == 'manual' %}selected="selected"{% endif %}>Featured</option>
+            <option value="best-selling" {% if sort_by == 'best-selling' %}selected="selected"{% endif %}>Best Selling</option>
+            <option value="price-ascending" {% if sort_by == 'price-ascending' %}selected="selected"{% endif %}>Price: Low to High</option>
+            <option value="price-descending" {% if sort_by == 'price-descending' %}selected="selected"{% endif %}>Price: High to Low</option>
+            <option value="created-descending" {% if sort_by == 'created-descending' %}selected="selected"{% endif %}>Newest</option>
+          </select>
+        </div>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <label for="collection-sort" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Sort By:</label>
-        <select id="collection-sort" class="sort-select">
-          <option value="featured">Featured</option>
-          <option value="best-selling">Best Selling</option>
-          <option value="price-low-high">Price: Low to High</option>
-          <option value="price-high-low">Price: High to Low</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Product Grid -->
-    <div class="product-grid collection-grid">
-      {% for product in collection.products %}
-        {% render 'product-card', product_card_product: product %}
-      {% else %}
-        {% comment %} Fallback for sample preview {% endcomment %}
-        {% for sample in section.settings.sample_products %}
-          {% render 'product-card', product_card_product: sample %}
+      <!-- Product Grid -->
+      <div class="product-grid collection-grid">
+        {% for product in collection.products %}
+          {% render 'product-card', product_card_product: product %}
+        {% else %}
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--color-text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 12px;">📦</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary); margin-bottom: 8px;">No products in this collection</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 20px;">Products will appear here once added to this collection in your Shopify Admin.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">View All Products</a>
+          </div>
         {% endfor %}
-      {% endfor %}
-    </div>
+      </div>
+
+      <!-- Pagination -->
+      {% if paginate.pages > 1 %}
+        <div class="pagination-wrapper" style="text-align: center; margin-top: 40px;">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    {% endpaginate %}
   </div>
 </div>
 

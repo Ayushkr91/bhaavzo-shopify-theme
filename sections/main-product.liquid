@@ -1,192 +1,382 @@
-<div class="pdp-section">
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+<div class="pdp-section" data-product-id="{{ product.id }}">
   <div class="page-width">
     <!-- Breadcrumb -->
     <div class="pdp-category-breadcrumb">
-      <a href="/">Home</a> / <a href="/collections/all">Collections</a> / <span>{{ product.title | default: 'Mini Rechargeable Vacuum Cleaner' }}</span>
+      <a href="{{ routes.root_url }}">Home</a> / 
+      <a href="{{ routes.all_products_collection_url }}">Collections</a> / 
+      <span>{{ product.title | default: 'Product Details' }}</span>
     </div>
 
     <div class="pdp-grid">
       <!-- Media Gallery -->
       <div class="pdp-gallery">
         <div class="pdp-main-image-wrap">
-          <img
-            id="pdp-main-image"
-            src="{{ product.featured_image | default: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80' }}"
-            alt="{{ product.title | escape }}"
-            class="pdp-main-img"
-            width="800"
-            height="800"
-          >
+          {% if featured_image %}
+            <img
+              id="pdp-main-image"
+              src="{{ featured_image | image_url: width: 800 }}"
+              alt="{{ featured_image.alt | default: product.title | escape }}"
+              class="pdp-main-img"
+              width="800"
+              height="800"
+              loading="eager"
+            >
+          {% else %}
+            <img
+              id="pdp-main-image"
+              src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80"
+              alt="{{ product.title | default: 'Product' | escape }}"
+              class="pdp-main-img"
+              width="800"
+              height="800"
+            >
+          {% endif %}
         </div>
 
         <div class="pdp-thumbnails">
-          <div class="pdp-thumb active" data-full-img="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80">
-            <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 1">
-          </div>
-          <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80">
-            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 2">
-          </div>
-          <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80">
-            <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 3">
-          </div>
-          <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80">
-            <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 4">
-          </div>
+          {% if product.media.size > 0 %}
+            {% for media in product.media limit: 4 %}
+              <div class="pdp-thumb {% if forloop.first %}active{% endif %}" data-full-img="{{ media | image_url: width: 800 }}">
+                <img
+                  src="{{ media | image_url: width: 120 }}"
+                  alt="{{ media.alt | default: product.title | escape }}"
+                  width="60"
+                  height="60"
+                  loading="lazy"
+                >
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="pdp-thumb active" data-full-img="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 1" width="60" height="60" loading="lazy">
+            </div>
+            <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 2" width="60" height="60" loading="lazy">
+            </div>
+            <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 3" width="60" height="60" loading="lazy">
+            </div>
+            <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 4" width="60" height="60" loading="lazy">
+            </div>
+          {% endif %}
         </div>
       </div>
 
       <!-- Product Form & Details -->
       <div class="pdp-details">
         <div class="pdp-rating-pill">
-          <span>★ 4.8</span>
-          <span>• 842 Verified Reviews</span>
-          <span>• In Stock</span>
+          {% if product.available %}
+            <span style="color: #10B981; font-weight: 700;">● In Stock & Ready to Dispatch</span>
+          {% else %}
+            <span style="color: #EF4444; font-weight: 700;">● Currently Out of Stock</span>
+          {% endif %}
+          {% if product.type != blank %}
+            <span>• {{ product.type }}</span>
+          {% endif %}
         </div>
 
-        <h1 class="pdp-title">{{ product.title | default: 'Mini Rechargeable Wireless Vacuum Cleaner' }}</h1>
+        <h1 class="pdp-title">{{ product.title | default: 'Smart Utility Solution' }}</h1>
 
-        <div class="pdp-price-wrap">
-          <span class="pdp-price">₹{{ product.price | default: 1299 }}</span>
-          <span class="pdp-compare-price">₹{{ product.compare_at_price | default: 2499 }}</span>
-          <span class="pdp-save-badge">Save ₹1,200 (48% OFF)</span>
+        <div class="pdp-price-wrap" id="pdp-price-wrap">
+          <span class="pdp-price" id="pdp-display-price">
+            {{ current_variant.price | default: 129900 | money }}
+          </span>
+          {% if current_variant.compare_at_price > current_variant.price %}
+            <span class="pdp-compare-price" id="pdp-display-compare">
+              {{ current_variant.compare_at_price | money }}
+            </span>
+            {% assign savings = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price %}
+            <span class="pdp-save-badge" id="pdp-display-save">Save {{ savings }}%</span>
+          {% endif %}
         </div>
 
-        <div class="pdp-urgency">
-          <span>🔥</span>
-          <span>High Demand: <strong>14 orders</strong> placed in Mumbai & Delhi in the last 2 hours</span>
-        </div>
+        {%- form 'product', product, id: 'product-form', class: 'product-form' -%}
+          <!-- Variant Selector -->
+          {% if product.has_only_default_variant == false %}
+            <div class="pdp-variants-wrapper" style="margin-bottom: 20px;">
+              {% for option in product.options_with_values %}
+                <div class="pdp-variants" data-option-index="{{ forloop.index0 }}">
+                  <div class="pdp-variant-title">Select {{ option.name }}:</div>
+                  <div class="pdp-variant-options">
+                    {% for value in option.values %}
+                      <button
+                        type="button"
+                        class="variant-btn {% if option.selected_value == value or forloop.first %}active{% endif %}"
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        data-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </button>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
 
-        <!-- Variants Selection -->
-        <div class="pdp-variants">
-          <div class="pdp-variant-title">Select Color / Option:</div>
-          <div class="pdp-variant-options">
-            <button type="button" class="variant-btn active" data-variant-name="Matte Black">Matte Black</button>
-            <button type="button" class="variant-btn" data-variant-name="Pearl White">Pearl White</button>
+              <!-- Native Variant Select (Synchronized via JS) -->
+              <select name="id" id="product-variant-select" style="display: none;">
+                {% for variant in product.variants %}
+                  <option
+                    value="{{ variant.id }}"
+                    {% if variant == current_variant %}selected="selected"{% endif %}
+                    {% unless variant.available %}disabled="disabled"{% endunless %}
+                    data-price="{{ variant.price | money }}"
+                    data-compare="{{ variant.compare_at_price | money }}"
+                    data-available="{{ variant.available }}"
+                    data-image="{{ variant.featured_image | image_url: width: 800 }}"
+                  >
+                    {{ variant.title }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% else %}
+            <input type="hidden" name="id" id="product-variant-select-hidden" value="{{ current_variant.id | default: 1 }}">
+          {% endif %}
+
+          <!-- Quantity & ATC Actions -->
+          <div class="pdp-action-group">
+            <div class="quantity-stepper" style="height: 50px;">
+              <button type="button" class="stepper-btn" style="width: 44px; height: 100%; font-size: 1.2rem;" onclick="let el=document.getElementById('pdp-qty'); if(el.value>1) el.value--;">-</button>
+              <input type="number" name="quantity" id="pdp-qty" class="stepper-input" style="width: 44px; font-size: 1.05rem;" value="1" min="1" readonly>
+              <button type="button" class="stepper-btn" style="width: 44px; height: 100%; font-size: 1.2rem;" onclick="let el=document.getElementById('pdp-qty'); el.value++;">+</button>
+            </div>
+
+            <button
+              type="submit"
+              name="add"
+              id="pdp-atc-btn"
+              class="btn btn--navy btn--lg pdp-btn-add-to-cart"
+              style="flex: 1;"
+              {% unless current_variant.available %}disabled="disabled"{% endunless %}
+            >
+              🛒 {% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}
+            </button>
+
+            <!-- Buy Now triggering direct checkout -->
+            <button
+              type="button"
+              id="pdp-buy-now-btn"
+              class="btn btn--primary btn--lg"
+              style="flex: 1;"
+              {% unless current_variant.available %}disabled="disabled"{% endunless %}
+            >
+              ⚡ Buy Now
+            </button>
           </div>
-        </div>
-
-        <!-- Quantity & ATC Actions -->
-        <div class="pdp-action-group">
-          <div class="quantity-stepper" style="height: 50px;">
-            <button type="button" class="stepper-btn" style="width: 44px; height: 100%; font-size: 1.2rem;" onclick="let el=document.getElementById('pdp-qty'); if(el.value>1) el.value--;">-</button>
-            <input type="text" id="pdp-qty" class="stepper-input" style="width: 44px; font-size: 1.05rem;" value="1" readonly>
-            <button type="button" class="stepper-btn" style="width: 44px; height: 100%; font-size: 1.2rem;" onclick="let el=document.getElementById('pdp-qty'); el.value++;">+</button>
-          </div>
-
-          <button
-            type="button"
-            class="btn btn--navy btn--lg pdp-btn-add-to-cart js-add-to-cart"
-            style="flex: 1;"
-            data-id="mini-rechargeable-vacuum-cleaner-black"
-            data-handle="mini-rechargeable-vacuum-cleaner"
-            data-title="{{ product.title | default: 'Mini Rechargeable Vacuum Cleaner' }}"
-            data-price="{{ product.price | default: 1299 }}"
-            data-variant="Matte Black"
-            data-image="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=400&q=80"
-          >
-            🛒 Add to Cart
-          </button>
-
-          <!-- Buy Now retaining native Shopify /checkout -->
-          <a
-            href="/checkout"
-            class="btn btn--primary btn--lg"
-            style="flex: 1;"
-          >
-            ⚡ Buy Now (COD)
-          </a>
-        </div>
+        {%- endform -%}
 
         <!-- Indian Delivery Pincode Checker -->
-        <div class="pdp-pincode-checker">
-          <div class="pincode-label">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="1" y="3" width="15" height="13"></rect>
-              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-              <circle cx="5.5" cy="18.5" r="2.5"></circle>
-              <circle cx="18.5" cy="18.5" r="2.5"></circle>
-            </svg>
-            Check Cash on Delivery & Delivery Speed
+        {% if section.settings.show_pincode_checker %}
+          <div class="pdp-pincode-checker">
+            <div class="pincode-label">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              Estimated Delivery & Courier Availability
+            </div>
+            <form id="pincode-form" class="pincode-form">
+              <input type="text" id="pincode-input" class="pincode-input" placeholder="Enter 6-digit Indian PIN (e.g. 400001)" maxlength="6" pattern="\d{6}">
+              <button type="submit" class="btn btn--navy btn--sm">Check</button>
+            </form>
+            <div id="pincode-result" class="pincode-result"></div>
           </div>
-          <form id="pincode-form" class="pincode-form">
-            <input type="text" id="pincode-input" class="pincode-input" placeholder="Enter 6-digit Indian PIN (e.g. 400001)" maxlength="6" pattern="\d{6}">
-            <button type="submit" class="btn btn--navy btn--sm">Check</button>
-          </form>
-          <div id="pincode-result" class="pincode-result"></div>
-        </div>
+        {% endif %}
 
         <!-- 3-Pillar Trust Strip -->
         {% render 'trust-badges' %}
 
-        <!-- Product Accordions -->
+        <!-- Product Accordions / Details -->
         <div class="faq-list" style="margin-top: 10px;">
           <div class="faq-item active">
-            <button class="faq-trigger">
-              <span>📋 Product Description & Benefits</span>
+            <button class="faq-trigger" type="button">
+              <span>📋 Product Details & Specification</span>
               <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
             <div class="faq-content">
-              <p>Say goodbye to crumbs, dust, and pet hair in unreachable corners. The Bhaavzo Mini Rechargeable Vacuum delivers 6,000Pa of cyclonic suction power in an ultra-compact 360g body.</p>
-              <ul style="margin-top: 8px; list-style: disc; padding-left: 20px;">
-                <li>High-speed pure copper motor for relentless suction.</li>
-                <li>Washable, reusable dual-layer HEPA filter.</li>
-                <li>Comes with flat crevice tool + brush nozzle for delicate keyboards.</li>
-                <li>Type-C quick recharge lasts up to 30 mins of continuous use.</li>
-              </ul>
+              {% if product.description != blank %}
+                {{ product.description }}
+              {% else %}
+                <p>Engineered for everyday durability and efficiency. Carefully inspected to meet rigorous Indian household utility standards.</p>
+              {% endif %}
             </div>
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger">
-              <span>📖 How to Use & Care</span>
+            <button class="faq-trigger" type="button">
+              <span>🚚 Shipping & Replacement Policy</span>
               <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
             <div class="faq-content">
-              <p>1. Fully charge the vacuum cleaner using the provided USB-C cable for 2 hours before first use.</p>
-              <p>2. Attach the brush nozzle for keyboards and vents, or the crevice tube for car seat gaps.</p>
-              <p>3. Twist the dust cup counter-clockwise to empty. Rinse the HEPA filter under running water once a month and dry completely before re-attaching.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>🚚 Shipping, COD & Warranty Details</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-            <div class="faq-content">
-              <p>• <strong>Free Delivery:</strong> On all orders above ₹999 across 19,000+ PIN codes.</p>
-              <p>• <strong>Cash on Delivery:</strong> Available with instant OTP verification.</p>
-              <p>• <strong>Warranty:</strong> 6-Month replacement warranty against technical defects.</p>
+              <p>• <strong>Free Delivery:</strong> On all orders above ₹999.</p>
+              <p>• <strong>Standard Transit:</strong> 4–7 business days via BlueDart, Delhivery, or Xpressbees.</p>
+              <p>• <strong>Replacement:</strong> 7-day hassle-free replacement in case of transit damage or manufacturing defects.</p>
             </div>
           </div>
         </div>
+
+        <!-- App Blocks Injection Container (OS 2.0 Extensibility) -->
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when '@app' %}
+              <div class="product-app-block" style="margin-top: 24px;" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+          {% endcase %}
+        {% endfor %}
       </div>
     </div>
   </div>
 
   <!-- Sticky Mobile Add-to-Cart Bar -->
-  <div class="sticky-mobile-atc">
-    <div class="sticky-atc__product-info">
-      <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=120&q=80" alt="Product" class="sticky-atc__img">
-      <div>
-        <div class="sticky-atc__title">{{ product.title | default: 'Mini Rechargeable Vacuum' }}</div>
-        <div class="sticky-atc__price">₹{{ product.price | default: 1299 }}</div>
+  {% if section.settings.show_sticky_atc %}
+    <div class="sticky-mobile-atc">
+      <div class="sticky-atc__product-info">
+        {% if featured_image %}
+          <img
+            src="{{ featured_image | image_url: width: 100 }}"
+            alt="{{ product.title | escape }}"
+            class="sticky-atc__img"
+            width="48"
+            height="48"
+            loading="lazy"
+          >
+        {% else %}
+          <img
+            src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=120&q=80"
+            alt="Product"
+            class="sticky-atc__img"
+            width="48"
+            height="48"
+            loading="lazy"
+          >
+        {% endif %}
+        <div>
+          <div class="sticky-atc__title">{{ product.title | default: 'Smart Product' | truncate: 24 }}</div>
+          <div class="sticky-atc__price">{{ current_variant.price | default: 129900 | money }}</div>
+        </div>
       </div>
+      <button
+        type="button"
+        id="sticky-atc-submit"
+        class="btn btn--primary btn--sm"
+        style="padding: 10px 18px; font-size: 0.9rem;"
+        {% unless current_variant.available %}disabled="disabled"{% endunless %}
+      >
+        {% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}
+      </button>
     </div>
-    <button
-      class="btn btn--primary btn--sm js-add-to-cart"
-      style="padding: 10px 18px; font-size: 0.9rem;"
-      data-id="mini-rechargeable-vacuum-cleaner-black"
-      data-handle="mini-rechargeable-vacuum-cleaner"
-      data-title="{{ product.title | default: 'Mini Rechargeable Vacuum Cleaner' }}"
-      data-price="{{ product.price | default: 1299 }}"
-      data-variant="Matte Black"
-      data-image="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=400&q=80"
-    >
-      Add to Cart (₹{{ product.price | default: 1299 }})
-    </button>
-  </div>
+  {% endif %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const productForm = document.getElementById('product-form');
+    const selectEl = document.getElementById('product-variant-select');
+    const displayPrice = document.getElementById('pdp-display-price');
+    const displayCompare = document.getElementById('pdp-display-compare');
+    const atcBtn = document.getElementById('pdp-atc-btn');
+    const buyNowBtn = document.getElementById('pdp-buy-now-btn');
+    const stickyAtcBtn = document.getElementById('sticky-atc-submit');
+    const mainImg = document.getElementById('pdp-main-image');
+
+    // Variant Option Buttons
+    document.querySelectorAll('.variant-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parentGroup = btn.closest('.pdp-variant-options');
+        if (parentGroup) {
+          parentGroup.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+
+        // Find active variant matching selected values
+        const selectedValues = Array.from(document.querySelectorAll('.variant-btn.active')).map(b => b.getAttribute('data-value'));
+        if (selectEl) {
+          for (let i = 0; i < selectEl.options.length; i++) {
+            const opt = selectEl.options[i];
+            const matches = selectedValues.every(val => opt.text.includes(val));
+            if (matches) {
+              selectEl.selectedIndex = i;
+              if (displayPrice && opt.dataset.price) displayPrice.textContent = opt.dataset.price;
+              if (displayCompare && opt.dataset.compare) displayCompare.textContent = opt.dataset.compare;
+              
+              const isAvailable = opt.dataset.available === 'true';
+              if (atcBtn) {
+                atcBtn.disabled = !isAvailable;
+                atcBtn.textContent = isAvailable ? '🛒 Add to Cart' : 'Sold Out';
+              }
+              if (buyNowBtn) buyNowBtn.disabled = !isAvailable;
+              if (stickyAtcBtn) {
+                stickyAtcBtn.disabled = !isAvailable;
+                stickyAtcBtn.textContent = isAvailable ? 'Add to Cart' : 'Sold Out';
+              }
+              if (opt.dataset.image && mainImg) mainImg.src = opt.dataset.image;
+              break;
+            }
+          }
+        }
+      });
+    });
+
+    // Handle Form Submit via Native AJAX Cart
+    if (productForm) {
+      productForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const variantId = selectEl ? selectEl.value : document.getElementById('product-variant-select-hidden')?.value;
+        const qty = parseInt(document.getElementById('pdp-qty')?.value || '1', 10);
+        if (window.BhaavzoCart && variantId) {
+          await window.BhaavzoCart.addItem({ id: variantId, quantity: qty });
+        }
+      });
+    }
+
+    // Buy Now Handler
+    if (buyNowBtn) {
+      buyNowBtn.addEventListener('click', async () => {
+        const variantId = selectEl ? selectEl.value : document.getElementById('product-variant-select-hidden')?.value;
+        const qty = parseInt(document.getElementById('pdp-qty')?.value || '1', 10);
+        if (window.BhaavzoCart && variantId) {
+          const success = await window.BhaavzoCart.addItem({ id: variantId, quantity: qty });
+          if (success) {
+            window.location.href = '{{ routes.cart_url }}/checkout';
+          }
+        }
+      });
+    }
+
+    if (stickyAtcBtn && productForm) {
+      stickyAtcBtn.addEventListener('click', () => {
+        productForm.dispatchEvent(new Event('submit', { cancelable: true }));
+      });
+    }
+
+    // Pincode checker simulation
+    const pincodeForm = document.getElementById('pincode-form');
+    const pincodeInput = document.getElementById('pincode-input');
+    const pincodeResult = document.getElementById('pincode-result');
+    if (pincodeForm && pincodeInput && pincodeResult) {
+      pincodeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pin = pincodeInput.value.trim();
+        if (/^\d{6}$/.test(pin)) {
+          pincodeResult.innerHTML = `
+            <div style="font-size: 0.82rem; color: #065F46; background: #ECFDF5; padding: 8px 12px; border-radius: 6px; margin-top: 8px;">
+              ✓ Delivery available to <strong>PIN ${pin}</strong> in 4-6 business days. Standard Courier Dispatch.
+            </div>
+          `;
+        } else {
+          pincodeResult.innerHTML = `<div style="font-size: 0.82rem; color: #B91C1C; margin-top: 6px;">Please enter a valid 6-digit PIN code.</div>`;
+        }
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {
@@ -203,6 +393,11 @@
       "id": "show_pincode_checker",
       "label": "Show Indian Pincode Delivery Checker",
       "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
     }
   ]
 }

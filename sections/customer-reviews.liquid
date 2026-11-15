@@ -1,31 +1,32 @@
 <section class="reviews-section">
   <div class="page-width">
     <div class="section-header">
-      <div class="section-tagline">{{ section.settings.tagline | default: 'Verified Buyer Feedback' }}</div>
-      <h2 class="section-title">{{ section.settings.title | default: 'Loved by 25,000+ Smart Indian Homes' }}</h2>
-      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Real reviews from verified customers across Delhi, Mumbai, Bengaluru, Pune, and 200+ cities.' }}</p>
+      <div class="section-tagline">{{ section.settings.tagline | default: 'Customer Feedback' }}</div>
+      <h2 class="section-title">{{ section.settings.title | default: 'What Our Customers Say' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Everyday feedback and experiences from Indian households using Bhaavzo products.' }}</p>
     </div>
 
     <div class="reviews-grid">
       {% for block in section.blocks %}
-        <div class="review-card" {{ block.shopify_attributes }}>
-          <div class="review-card__stars">
-            ★★★★★
-          </div>
-          <p class="review-card__text">“{{ block.settings.comment }}”</p>
-          <div class="review-card__author">
-            <div class="author-info">
-              <span class="author-name">{{ block.settings.author_name }}</span>
-              <span class="author-city">{{ block.settings.city }} • Bought {{ block.settings.product_bought }}</span>
+        {% case block.type %}
+          {% when 'review' %}
+            <div class="review-card" {{ block.shopify_attributes }}>
+              <div class="review-card__stars">
+                ★★★★★
+              </div>
+              <p class="review-card__text">“{{ block.settings.comment }}”</p>
+              <div class="review-card__author">
+                <div class="author-info">
+                  <span class="author-name">{{ block.settings.author_name }}</span>
+                  <span class="author-city">{{ block.settings.city }} • {{ block.settings.product_bought }}</span>
+                </div>
+              </div>
             </div>
-            <div class="verified-buyer-pill">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              Verified
+          {% when '@app' %}
+            <div class="reviews-app-block" style="grid-column: 1 / -1;" {{ block.shopify_attributes }}>
+              {% render block %}
             </div>
-          </div>
-        </div>
+        {% endcase %}
       {% endfor %}
     </div>
   </div>
@@ -39,22 +40,25 @@
       "type": "text",
       "id": "tagline",
       "label": "Tagline",
-      "default": "Verified Buyer Feedback"
+      "default": "Customer Feedback"
     },
     {
       "type": "text",
       "id": "title",
       "label": "Heading",
-      "default": "Loved by 25,000+ Smart Indian Homes"
+      "default": "What Our Customers Say"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "Real reviews from verified customers across Delhi, Mumbai, Bengaluru, Pune, and 200+ cities."
+      "default": "Everyday feedback and experiences from Indian households using Bhaavzo products."
     }
   ],
   "blocks": [
+    {
+      "type": "@app"
+    },
     {
       "type": "review",
       "name": "Customer Review",
@@ -81,7 +85,7 @@
           "type": "textarea",
           "id": "comment",
           "label": "Review Comment",
-          "default": "Cleaned my laptop keyboard and car AC vents within 5 minutes. Amazing suction power and battery lasts several cleanups!"
+          "default": "Cleaned my laptop keyboard and car AC vents within 5 minutes. Good suction power and battery lasts several cleanups."
         }
       ]
     }
@@ -94,7 +98,7 @@
           "author_name": "Pooja Deshmukh",
           "city": "Pune",
           "product_bought": "Kitchen Chopper",
-          "comment": "Cut my cooking prep time in half! The pull cord mechanism is super smooth and sturdy. Delivered in 3 days with COD."
+          "comment": "Cut my cooking prep time in half! The pull cord mechanism is smooth and sturdy."
         }
       },
       {
@@ -103,7 +107,7 @@
           "author_name": "Arjun Mehta",
           "city": "Mumbai",
           "product_bought": "Motion Sensor LED",
-          "comment": "Placed two near my hallway and bathroom. Turns on automatically when I walk by at night. Super energy efficient and bright!"
+          "comment": "Placed near hallway and bathroom. Turns on automatically at night when someone walks by."
         }
       },
       {
@@ -112,7 +116,7 @@
           "author_name": "Sneha Reddy",
           "city": "Hyderabad",
           "product_bought": "Foldable Laptop Stand",
-          "comment": "Saved my neck posture during long work-from-home hours. Solid aluminum build, feels like a ₹2,000 product bought for just ₹799."
+          "comment": "Saved my neck posture during long work-from-home hours. Solid build and convenient to carry."
         }
       }
     ]

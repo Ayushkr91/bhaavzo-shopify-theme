@@ -1,0 +1,41 @@
+<div class="static-page-wrapper" style="text-align: center; padding: 80px 20px;">
+  <div class="page-width">
+    <div style="font-size: 4rem; line-height: 1; margin-bottom: 16px;">🔍</div>
+    <span class="badge badge--sale" style="margin-bottom: 12px; display: inline-block;">404 • Page Not Found</span>
+    <h1 style="font-size: 2.2rem; font-weight: 800; color: var(--color-primary); margin-bottom: 12px;">
+      {{ section.settings.title | default: 'We Couldn’t Find That Page' }}
+    </h1>
+    <p style="font-size: 1.05rem; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 28px;">
+      {{ section.settings.subtext | default: 'The smart utility product or link you are looking for may have been moved, updated, or temporarily out of stock.' }}
+    </p>
+
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="{{ routes.root_url }}" class="btn btn--primary btn--lg">
+        🏠 Return to Homepage
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--outline btn--lg">
+        Explore All Products
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "We Couldn’t Find That Page"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "The smart utility product or link you are looking for may have been moved, updated, or temporarily out of stock."
+    }
+  ]
+}
+{% endschema %}
