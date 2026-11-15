@@ -7,13 +7,53 @@
         "headline": "Smart Finds. <span>Better Everyday.</span>",
         "subheadline": "Discover innovative, problem-solving home utility and smart gadgets designed for modern Indian homes. Tested for durability, priced fairly.",
         "primary_cta_text": "Shop Gadgets",
-        "primary_cta_link": "/collections/gadgets",
+        "primary_cta_link": "/collections/all",
         "secondary_cta_text": "Shop Home Utility",
-        "secondary_cta_link": "/collections/home-organisation"
+        "secondary_cta_link": "/collections"
       }
     },
     "featured_categories": {
       "type": "featured-categories",
+      "blocks": {
+        "cat_gadgets": {
+          "type": "category_item",
+          "settings": {
+            "icon": "⚡",
+            "title": "Smart Gadgets",
+            "items_count": "Tech problem-solvers"
+          }
+        },
+        "cat_kitchen": {
+          "type": "category_item",
+          "settings": {
+            "icon": "🍳",
+            "title": "Kitchen Utility",
+            "items_count": "Time-saving kitchen tools"
+          }
+        },
+        "cat_home": {
+          "type": "category_item",
+          "settings": {
+            "icon": "📦",
+            "title": "Home Organisation",
+            "items_count": "Space-saving tidying aids"
+          }
+        },
+        "cat_lighting": {
+          "type": "category_item",
+          "settings": {
+            "icon": "💡",
+            "title": "Lighting & Cleaning",
+            "items_count": "Automatic LEDs & helpers"
+          }
+        }
+      },
+      "block_order": [
+        "cat_gadgets",
+        "cat_kitchen",
+        "cat_home",
+        "cat_lighting"
+      ],
       "settings": {
         "tagline": "Curated Collections",
         "title": "Shop Problem Solvers by Room",
@@ -31,6 +71,46 @@
     },
     "why_bhaavzo": {
       "type": "why-bhaavzo",
+      "blocks": {
+        "pillar_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🎯",
+            "title": "Useful Products",
+            "description": "Handpicked, tested problem-solvers that make daily chores faster, tidier, and effortless."
+          }
+        },
+        "pillar_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "🏷️",
+            "title": "Fair Pricing (Sahi Bhaav)",
+            "description": "Direct-to-consumer sourcing ensures you get genuine quality without middleman retail inflation."
+          }
+        },
+        "pillar_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "💬",
+            "title": "Easy Support",
+            "description": "Instant human assistance via WhatsApp (+91 98765 43210) and email within minutes."
+          }
+        },
+        "pillar_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Secure Checkout & COD",
+            "description": "Pay with peace of mind using Cash on Delivery or 256-bit encrypted UPI & Card gateways."
+          }
+        }
+      },
+      "block_order": [
+        "pillar_1",
+        "pillar_2",
+        "pillar_3",
+        "pillar_4"
+      ],
       "settings": {
         "tagline": "Our Promise",
         "title": "Why India Trusts Bhaavzo",
@@ -47,6 +127,40 @@
     },
     "customer_reviews": {
       "type": "customer-reviews",
+      "blocks": {
+        "rev_1": {
+          "type": "review",
+          "settings": {
+            "author_name": "Pooja Deshmukh",
+            "city": "Pune",
+            "product_bought": "Kitchen Chopper",
+            "comment": "Cut my cooking prep time in half! The pull cord mechanism is smooth and sturdy."
+          }
+        },
+        "rev_2": {
+          "type": "review",
+          "settings": {
+            "author_name": "Arjun Mehta",
+            "city": "Mumbai",
+            "product_bought": "Motion Sensor LED",
+            "comment": "Placed near hallway and bathroom. Turns on automatically at night when someone walks by."
+          }
+        },
+        "rev_3": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sneha Reddy",
+            "city": "Hyderabad",
+            "product_bought": "Foldable Laptop Stand",
+            "comment": "Saved my neck posture during long work-from-home hours. Solid build and convenient to carry."
+          }
+        }
+      },
+      "block_order": [
+        "rev_1",
+        "rev_2",
+        "rev_3"
+      ],
       "settings": {
         "tagline": "Verified Buyer Feedback",
         "title": "Loved by 25,000+ Smart Indian Homes",
@@ -55,6 +169,42 @@
     },
     "faq": {
       "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "Is Cash on Delivery (COD) available?",
+            "answer": "Yes! Cash on Delivery is available across 19,000+ PIN codes in India. You only pay cash or UPI to the delivery executive when the parcel reaches your door."
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "We dispatch all orders within 24 hours. Metro cities (Mumbai, Delhi, Bengaluru, Chennai, Hyderabad, Kolkata) receive deliveries in 2–4 business days. Other regions take 3–6 business days via Delhivery, BlueDart, and Shadowfax."
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "What is the return and replacement policy?",
+            "answer": "We offer a 7-day hassle-free replacement guarantee. If your product is damaged in transit, defective, or not as described, simply message our WhatsApp support (+91 98765 43210) for immediate doorstep reverse pickup and replacement."
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "Are Bhaavzo products covered by warranty?",
+            "answer": "Yes! All electronic and smart gadget products come with a minimum 6-month brand warranty against manufacturing defects."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
       "settings": {
         "tagline": "Got Questions?",
         "title": "Frequently Asked Questions",
