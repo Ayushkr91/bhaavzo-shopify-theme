@@ -1,0 +1,13 @@
+# ==========================================
+# Shopify Theme Engine & CLI Ignore File
+# Excludes development documentation and git metadata from theme packaging
+# ==========================================
+.git/
+.gitignore
+.shopifyignore
+README.md
+preview-server/
+*.png
+*.jpg
+*.zip
+*.ps1

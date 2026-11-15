@@ -1,0 +1,209 @@
+<div class="pdp-section">
+  <div class="page-width">
+    <!-- Breadcrumb -->
+    <div class="pdp-category-breadcrumb">
+      <a href="/">Home</a> / <a href="/collections/all">Collections</a> / <span>{{ product.title | default: 'Mini Rechargeable Vacuum Cleaner' }}</span>
+    </div>
+
+    <div class="pdp-grid">
+      <!-- Media Gallery -->
+      <div class="pdp-gallery">
+        <div class="pdp-main-image-wrap">
+          <img
+            id="pdp-main-image"
+            src="{{ product.featured_image | default: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80' }}"
+            alt="{{ product.title | escape }}"
+            class="pdp-main-img"
+            width="800"
+            height="800"
+          >
+        </div>
+
+        <div class="pdp-thumbnails">
+          <div class="pdp-thumb active" data-full-img="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80">
+            <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 1">
+          </div>
+          <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80">
+            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 2">
+          </div>
+          <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80">
+            <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 3">
+          </div>
+          <div class="pdp-thumb" data-full-img="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80">
+            <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 4">
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Form & Details -->
+      <div class="pdp-details">
+        <div class="pdp-rating-pill">
+          <span>★ 4.8</span>
+          <span>• 842 Verified Reviews</span>
+          <span>• In Stock</span>
+        </div>
+
+        <h1 class="pdp-title">{{ product.title | default: 'Mini Rechargeable Wireless Vacuum Cleaner' }}</h1>
+
+        <div class="pdp-price-wrap">
+          <span class="pdp-price">₹{{ product.price | default: 1299 }}</span>
+          <span class="pdp-compare-price">₹{{ product.compare_at_price | default: 2499 }}</span>
+          <span class="pdp-save-badge">Save ₹1,200 (48% OFF)</span>
+        </div>
+
+        <div class="pdp-urgency">
+          <span>🔥</span>
+          <span>High Demand: <strong>14 orders</strong> placed in Mumbai & Delhi in the last 2 hours</span>
+        </div>
+
+        <!-- Variants Selection -->
+        <div class="pdp-variants">
+          <div class="pdp-variant-title">Select Color / Option:</div>
+          <div class="pdp-variant-options">
+            <button type="button" class="variant-btn active" data-variant-name="Matte Black">Matte Black</button>
+            <button type="button" class="variant-btn" data-variant-name="Pearl White">Pearl White</button>
+          </div>
+        </div>
+
+        <!-- Quantity & ATC Actions -->
+        <div class="pdp-action-group">
+          <div class="quantity-stepper" style="height: 50px;">
+            <button type="button" class="stepper-btn" style="width: 44px; height: 100%; font-size: 1.2rem;" onclick="let el=document.getElementById('pdp-qty'); if(el.value>1) el.value--;">-</button>
+            <input type="text" id="pdp-qty" class="stepper-input" style="width: 44px; font-size: 1.05rem;" value="1" readonly>
+            <button type="button" class="stepper-btn" style="width: 44px; height: 100%; font-size: 1.2rem;" onclick="let el=document.getElementById('pdp-qty'); el.value++;">+</button>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn--navy btn--lg pdp-btn-add-to-cart js-add-to-cart"
+            style="flex: 1;"
+            data-id="mini-rechargeable-vacuum-cleaner-black"
+            data-handle="mini-rechargeable-vacuum-cleaner"
+            data-title="{{ product.title | default: 'Mini Rechargeable Vacuum Cleaner' }}"
+            data-price="{{ product.price | default: 1299 }}"
+            data-variant="Matte Black"
+            data-image="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=400&q=80"
+          >
+            🛒 Add to Cart
+          </button>
+
+          <!-- Buy Now retaining native Shopify /checkout -->
+          <a
+            href="/checkout"
+            class="btn btn--primary btn--lg"
+            style="flex: 1;"
+          >
+            ⚡ Buy Now (COD)
+          </a>
+        </div>
+
+        <!-- Indian Delivery Pincode Checker -->
+        <div class="pdp-pincode-checker">
+          <div class="pincode-label">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            Check Cash on Delivery & Delivery Speed
+          </div>
+          <form id="pincode-form" class="pincode-form">
+            <input type="text" id="pincode-input" class="pincode-input" placeholder="Enter 6-digit Indian PIN (e.g. 400001)" maxlength="6" pattern="\d{6}">
+            <button type="submit" class="btn btn--navy btn--sm">Check</button>
+          </form>
+          <div id="pincode-result" class="pincode-result"></div>
+        </div>
+
+        <!-- 3-Pillar Trust Strip -->
+        {% render 'trust-badges' %}
+
+        <!-- Product Accordions -->
+        <div class="faq-list" style="margin-top: 10px;">
+          <div class="faq-item active">
+            <button class="faq-trigger">
+              <span>📋 Product Description & Benefits</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-content">
+              <p>Say goodbye to crumbs, dust, and pet hair in unreachable corners. The Bhaavzo Mini Rechargeable Vacuum delivers 6,000Pa of cyclonic suction power in an ultra-compact 360g body.</p>
+              <ul style="margin-top: 8px; list-style: disc; padding-left: 20px;">
+                <li>High-speed pure copper motor for relentless suction.</li>
+                <li>Washable, reusable dual-layer HEPA filter.</li>
+                <li>Comes with flat crevice tool + brush nozzle for delicate keyboards.</li>
+                <li>Type-C quick recharge lasts up to 30 mins of continuous use.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>📖 How to Use & Care</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-content">
+              <p>1. Fully charge the vacuum cleaner using the provided USB-C cable for 2 hours before first use.</p>
+              <p>2. Attach the brush nozzle for keyboards and vents, or the crevice tube for car seat gaps.</p>
+              <p>3. Twist the dust cup counter-clockwise to empty. Rinse the HEPA filter under running water once a month and dry completely before re-attaching.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>🚚 Shipping, COD & Warranty Details</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-content">
+              <p>• <strong>Free Delivery:</strong> On all orders above ₹999 across 19,000+ PIN codes.</p>
+              <p>• <strong>Cash on Delivery:</strong> Available with instant OTP verification.</p>
+              <p>• <strong>Warranty:</strong> 6-Month replacement warranty against technical defects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Mobile Add-to-Cart Bar -->
+  <div class="sticky-mobile-atc">
+    <div class="sticky-atc__product-info">
+      <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=120&q=80" alt="Product" class="sticky-atc__img">
+      <div>
+        <div class="sticky-atc__title">{{ product.title | default: 'Mini Rechargeable Vacuum' }}</div>
+        <div class="sticky-atc__price">₹{{ product.price | default: 1299 }}</div>
+      </div>
+    </div>
+    <button
+      class="btn btn--primary btn--sm js-add-to-cart"
+      style="padding: 10px 18px; font-size: 0.9rem;"
+      data-id="mini-rechargeable-vacuum-cleaner-black"
+      data-handle="mini-rechargeable-vacuum-cleaner"
+      data-title="{{ product.title | default: 'Mini Rechargeable Vacuum Cleaner' }}"
+      data-price="{{ product.price | default: 1299 }}"
+      data-variant="Matte Black"
+      data-image="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=400&q=80"
+    >
+      Add to Cart (₹{{ product.price | default: 1299 }})
+    </button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_sticky_atc",
+      "label": "Show Sticky Mobile Add to Cart Bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pincode_checker",
+      "label": "Show Indian Pincode Delivery Checker",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

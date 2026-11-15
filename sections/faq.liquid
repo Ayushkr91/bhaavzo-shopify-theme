@@ -1,0 +1,108 @@
+<section class="faq-section">
+  <div class="page-width faq-container">
+    <div class="section-header">
+      <div class="section-tagline">{{ section.settings.tagline | default: 'Got Questions?' }}</div>
+      <h2 class="section-title">{{ section.settings.title | default: 'Frequently Asked Questions' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Everything you need to know about delivery, Cash on Delivery, returns, and product quality.' }}</p>
+    </div>
+
+    <div class="faq-list">
+      {% for block in section.blocks %}
+        <div class="faq-item {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+          <button class="faq-trigger" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span>{{ block.settings.question }}</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-content">
+            <p>{{ block.settings.answer }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Got Questions?"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything you need to know about delivery, Cash on Delivery, returns, and product quality."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "FAQ Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Is Cash on Delivery (COD) available?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Yes! Cash on Delivery is available across 19,000+ pin codes in India. You only pay when the parcel arrives at your doorstep."
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "question",
+        "settings": {
+          "question": "Is Cash on Delivery (COD) available?",
+          "answer": "Yes! Cash on Delivery is available across 19,000+ PIN codes in India. You only pay cash or UPI to the delivery executive when the parcel reaches your door."
+        }
+      },
+      {
+        "type": "question",
+        "settings": {
+          "question": "How long does shipping take?",
+          "answer": "We dispatch all orders within 24 hours. Metro cities (Mumbai, Delhi, Bengaluru, Chennai, Hyderabad, Kolkata) receive deliveries in 2–4 business days. Other regions take 3–6 business days via Delhivery, BlueDart, and Shadowfax."
+        }
+      },
+      {
+        "type": "question",
+        "settings": {
+          "question": "What is the return and replacement policy?",
+          "answer": "We offer a 7-day hassle-free replacement guarantee. If your product is damaged in transit, defective, or not as described, simply message our WhatsApp support (+91 98765 43210) for immediate doorstep reverse pickup and replacement."
+        }
+      },
+      {
+        "type": "question",
+        "settings": {
+          "question": "Are Bhaavzo products covered by warranty?",
+          "answer": "Yes! All electronic and smart gadget products come with a minimum 6-month brand warranty against manufacturing defects."
+        }
+      }
+    ]
+  },
+  "presets": [
+    {
+      "name": "FAQ Section"
+    }
+  ]
+}
+{% endschema %}

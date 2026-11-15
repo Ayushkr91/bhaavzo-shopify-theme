@@ -1,0 +1,100 @@
+<div class="cart-drawer" id="cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Shopping Cart">
+  <div class="cart-drawer__header">
+    <h3 class="cart-drawer__title">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      Your Smart Cart
+    </h3>
+    <button class="cart-drawer__close" aria-label="Close cart">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Free Shipping Progress Indicator -->
+  <div class="free-shipping-meter">
+    <div class="free-shipping-text">
+      <span>🚚</span>
+      <span>Add <strong>₹350</strong> more for <strong>FREE Delivery</strong>!</span>
+    </div>
+    <div class="free-shipping-bar">
+      <div class="free-shipping-progress" style="width: 65%;"></div>
+    </div>
+  </div>
+
+  <!-- Items list (populated by client JS / Liquid) -->
+  <div class="cart-drawer__items">
+    <!-- Cart items injected via cart-drawer.js -->
+  </div>
+
+  <!-- Recommended Add-on / Cross-sell -->
+  <div style="padding: 12px 20px; background: #FFF9F5; border-top: 1px dashed var(--color-border); border-bottom: 1px dashed var(--color-border);">
+    <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; margin-bottom: 6px;">
+      💡 Recommended Home Add-on
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=100&q=80" style="width: 36px; height: 36px; border-radius: 4px; object-fit: cover;" alt="Night light">
+        <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary); line-height: 1.2;">
+          Motion Sensor Night Light<br>
+          <span style="color: var(--color-accent); font-weight: 700;">₹499</span>
+        </div>
+      </div>
+      <button
+        class="btn btn--outline-accent btn--sm js-add-to-cart"
+        style="padding: 4px 10px; font-size: 0.75rem; min-height: 30px;"
+        data-id="motion-sensor-night-light-warm"
+        data-handle="motion-sensor-night-light"
+        data-title="Smart Motion Sensor Light"
+        data-price="499"
+        data-variant="Warm White 3000K"
+        data-image="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400&q=80"
+      >
+        + Add
+      </button>
+    </div>
+  </div>
+
+  <!-- Cart Footer / Native Checkout CTA -->
+  <div class="cart-drawer__footer">
+    <div class="cart-subtotal-row">
+      <span class="cart-subtotal-label">Subtotal:</span>
+      <span class="cart-subtotal-amount">₹1,299</span>
+    </div>
+    <div style="font-size: 0.78rem; color: var(--color-text-muted); margin-bottom: 14px;">
+      Taxes included. Shipping calculated at checkout (Free above ₹999).
+    </div>
+
+    <!-- Retaining Shopify's native checkout route (/checkout) -->
+    <a href="/checkout" class="btn btn--primary btn--full btn--lg" style="text-transform: uppercase; letter-spacing: 0.04em;">
+      🔒 Proceed to Checkout
+    </a>
+
+    <div class="cart-trust-pills">
+      <span>🛡️ 100% Secure Checkout</span>
+      <span>•</span>
+      <span>💵 Cash on Delivery</span>
+      <span>•</span>
+      <span>🔄 7-Day Returns</span>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_cross_sell",
+      "label": "Show Recommended Product",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

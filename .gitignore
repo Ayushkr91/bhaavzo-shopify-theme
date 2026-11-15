@@ -1,0 +1,67 @@
+# ==========================================
+# Bhaavzo Shopify Online Store 2.0 - .gitignore
+# ==========================================
+
+# 1. Environment & Private Credentials (Security)
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+
+# 2. Node & Dependency Caches
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 3. Operating System & Editor Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 4. Logs, Temporary Files & Build Caches
+*.log
+logs/
+.cache/
+.tmp/
+tmp/
+temp/
+*.swp
+*.swo
+*~
+
+# 5. Local Preview Artifacts, Archives & Screenshots
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.bmp
+*.zip
+*.tar.gz
+*.ps1
+preview-server/
+
+# 6. Shopify Local Backups & Cache
+.shopify/
+config/settings_data.json.bak
+sections/*.bak
+snippets/*.bak
+assets/*.map

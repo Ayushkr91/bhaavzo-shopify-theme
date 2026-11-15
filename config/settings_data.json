@@ -1,0 +1,14 @@
+{
+  "current": {
+    "color_primary": "#102A43",
+    "color_accent": "#FF6B35",
+    "color_background": "#FFFBF5",
+    "color_surface": "#FFFFFF",
+    "brand_tagline": "Sahi Bhaav. Smart Ghar.",
+    "free_shipping_threshold": 999,
+    "whatsapp_number": "+919876543210",
+    "support_email": "support@bhaavzo.com",
+    "enable_cart_drawer": true,
+    "show_free_shipping_meter": true
+  }
+}

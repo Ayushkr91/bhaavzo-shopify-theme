@@ -1,0 +1,40 @@
+{
+  "general": {
+    "search": "Search smart gadgets...",
+    "cart": "Cart",
+    "menu": "Menu",
+    "close": "Close",
+    "currency": "INR",
+    "currency_symbol": "₹"
+  },
+  "announcement": {
+    "default_text": "Free Shipping on Orders over ₹999 | Secure Payments | COD Available"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "buy_now": "Buy Now with COD",
+      "sold_out": "Sold Out",
+      "sale": "Sale",
+      "save": "Save",
+      "in_stock": "In Stock",
+      "quick_add": "Quick Add",
+      "pincode_check": "Enter PIN code for delivery date",
+      "free_shipping_notice": "Eligible for FREE Delivery across India"
+    }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "subtotal": "Subtotal",
+    "checkout": "Proceed to Checkout",
+    "empty": "Your cart is empty",
+    "free_shipping_locked": "Add {{ amount }} more for FREE Delivery!",
+    "free_shipping_unlocked": "You've unlocked FREE Delivery!"
+  },
+  "trust": {
+    "cod": "Cash on Delivery",
+    "easy_returns": "7-Day Easy Returns",
+    "secure_payment": "100% Secure Checkout",
+    "verified_buyer": "Verified Buyer"
+  }
+}

@@ -1,0 +1,50 @@
+<section class="newsletter-section">
+  <div class="page-width">
+    <div class="newsletter-box">
+      <span class="badge badge--sale" style="margin-bottom: 14px;">🎁 Exclusive Welcome Offer</span>
+      <h2 class="newsletter__title">{{ section.settings.title | default: 'Get ₹100 OFF Your First Order' }}</h2>
+      <p class="newsletter__desc">{{ section.settings.description | default: 'Join 40,000+ smart homeowners. Get secret flash deals, new utility gadget drops, and a flat ₹100 coupon code delivered straight to your WhatsApp or inbox.' }}</p>
+
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('🎉 Thank you! Your ₹100 discount coupon (BHAAVZO100) has been sent.');">
+        <input
+          type="text"
+          class="newsletter-input"
+          placeholder="Enter WhatsApp number or email..."
+          required
+        >
+        <button type="submit" class="btn btn--primary">
+          Claim ₹100 Coupon
+        </button>
+      </form>
+
+      <div class="newsletter-guarantee">
+        <span>🔒 No spam ever. Unsubscribe anytime in 1 click.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter & WhatsApp",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Get ₹100 OFF Your First Order"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Join 40,000+ smart homeowners. Get secret flash deals, new utility gadget drops, and a flat ₹100 coupon code delivered straight to your WhatsApp or inbox."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter & WhatsApp"
+    }
+  ]
+}
+{% endschema %}

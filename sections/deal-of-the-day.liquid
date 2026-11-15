@@ -1,0 +1,115 @@
+<section class="deal-section">
+  <div class="page-width">
+    <div class="deal-card">
+      <div class="deal-grid">
+        <div class="deal-info">
+          <div class="deal__badge">
+            <span>⚡ {{ section.settings.badge | default: 'Flash Deal of the Day' }}</span>
+          </div>
+
+          <h2 class="deal__title">{{ section.settings.title | default: 'Wireless Portable Blender (400ml)' }}</h2>
+          <p class="deal__desc">{{ section.settings.description | default: 'Equipped with 6 ultra-sharp 3D stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush ice, fresh fruits, and protein shakes on the go.' }}</p>
+
+          <!-- Real-time Countdown Timer -->
+          <div class="countdown-timer">
+            <div class="countdown-block">
+              <span id="timer-hours" class="countdown-num">08</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <span class="countdown-colon">:</span>
+            <div class="countdown-block">
+              <span id="timer-mins" class="countdown-num">42</span>
+              <span class="countdown-label">Mins</span>
+            </div>
+            <span class="countdown-colon">:</span>
+            <div class="countdown-block">
+              <span id="timer-secs" class="countdown-num">19</span>
+              <span class="countdown-label">Secs</span>
+            </div>
+          </div>
+
+          <!-- Stock meter -->
+          <div class="stock-meter-wrap">
+            <div class="stock-meter-label">
+              <span>🔥 Hurry, limited units available at this price</span>
+              <span style="color: var(--color-accent); font-weight: 700;">Only 9 left in stock!</span>
+            </div>
+            <div class="stock-progress-bar">
+              <div class="stock-progress-fill" style="width: 82%;"></div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px;">
+            <span style="font-size: 2rem; font-weight: 900; color: #FFFFFF;">₹1,499</span>
+            <span style="font-size: 1.2rem; color: #9FB3C8; text-decoration: line-through;">₹2,999</span>
+            <span class="badge badge--sale" style="font-size: 0.85rem;">50% OFF</span>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button
+              class="btn btn--primary btn--lg js-add-to-cart"
+              data-id="portable-blender-pink"
+              data-handle="portable-blender"
+              data-title="Wireless Portable Blender (400ml)"
+              data-price="1499"
+              data-variant="Pastel Pink"
+              data-image="https://images.unsplash.com/photo-1570831739435-6601aa3fa4fb?auto=format&fit=crop&w=600&q=80"
+            >
+              ⚡ Grab This Deal (₹1,499)
+            </button>
+            <a href="/products/portable-blender" class="btn btn--outline" style="border-color: rgba(255,255,255,0.4); color: #FFFFFF;">
+              View Details
+            </a>
+          </div>
+        </div>
+
+        <div class="deal-visual">
+          <img
+            src="https://images.unsplash.com/photo-1570831739435-6601aa3fa4fb?auto=format&fit=crop&w=600&q=80"
+            alt="Wireless Portable Blender"
+            class="deal-image"
+            loading="lazy"
+            width="500"
+            height="500"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deal of the Day",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Text",
+      "default": "Flash Deal of the Day"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Deal Title",
+      "default": "Wireless Portable Blender (400ml)"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Deal Description",
+      "default": "Equipped with 6 ultra-sharp 3D stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush ice, fresh fruits, and protein shakes on the go."
+    },
+    {
+      "type": "product",
+      "id": "deal_product",
+      "label": "Featured Deal Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deal of the Day"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,82 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {
+        "badge_text": "New Innovations 2026 • COD Available",
+        "headline": "Smart Finds. <span>Better Everyday.</span>",
+        "subheadline": "Discover innovative, problem-solving home utility and smart gadgets designed for modern Indian homes. Tested for durability, priced fairly.",
+        "primary_cta_text": "Shop Gadgets",
+        "primary_cta_link": "/collections/gadgets",
+        "secondary_cta_text": "Shop Home Utility",
+        "secondary_cta_link": "/collections/home-organisation"
+      }
+    },
+    "featured_categories": {
+      "type": "featured-categories",
+      "settings": {
+        "tagline": "Curated Collections",
+        "title": "Shop Problem Solvers by Room",
+        "subtitle": "Practical innovations engineered to simplify your daily chores."
+      }
+    },
+    "product_carousel": {
+      "type": "product-carousel",
+      "settings": {
+        "tagline": "Top Rated by Customers",
+        "title": "Bhaavzo Best Sellers",
+        "subtitle": "Our most loved smart gadgets and home utility essentials with over 25,000+ satisfied buyers.",
+        "products_to_show": 8
+      }
+    },
+    "why_bhaavzo": {
+      "type": "why-bhaavzo",
+      "settings": {
+        "tagline": "Our Promise",
+        "title": "Why India Trusts Bhaavzo",
+        "subtitle": "Zero gimmickry. Genuine everyday utility, fair pricing, and reliable service."
+      }
+    },
+    "deal_of_the_day": {
+      "type": "deal-of-the-day",
+      "settings": {
+        "badge": "Flash Deal of the Day",
+        "title": "Wireless Portable Blender (400ml)",
+        "description": "Equipped with 6 ultra-sharp 3D stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush ice and fresh fruits effortlessly."
+      }
+    },
+    "customer_reviews": {
+      "type": "customer-reviews",
+      "settings": {
+        "tagline": "Verified Buyer Feedback",
+        "title": "Loved by 25,000+ Smart Indian Homes",
+        "subtitle": "Real feedback from verified buyers across Mumbai, Bengaluru, Delhi, Pune, and beyond."
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "tagline": "Got Questions?",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Everything you need to know about delivery, Cash on Delivery, and returns."
+      }
+    },
+    "newsletter": {
+      "type": "newsletter-signup",
+      "settings": {
+        "title": "Get ₹100 OFF Your First Order",
+        "description": "Join 40,000+ smart homeowners. Get secret flash deals, new utility gadget drops, and a flat ₹100 coupon code delivered straight to your WhatsApp."
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "featured_categories",
+    "product_carousel",
+    "why_bhaavzo",
+    "deal_of_the_day",
+    "customer_reviews",
+    "faq",
+    "newsletter"
+  ]
+}

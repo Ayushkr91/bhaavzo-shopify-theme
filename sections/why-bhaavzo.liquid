@@ -1,0 +1,114 @@
+<section class="why-section">
+  <div class="page-width">
+    <div class="section-header">
+      <div class="section-tagline">{{ section.settings.tagline | default: 'Our Core Promise' }}</div>
+      <h2 class="section-title">{{ section.settings.title | default: 'Why India Trusts Bhaavzo' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'We cut the gimmickry and focus on genuine utility, honest pricing, and trustworthy service.' }}</p>
+    </div>
+
+    <div class="why-grid">
+      {% for block in section.blocks %}
+        <div class="why-card" {{ block.shopify_attributes }}>
+          <div class="why-card__icon">
+            <span>{{ block.settings.icon }}</span>
+          </div>
+          <h3 class="why-card__title">{{ block.settings.title }}</h3>
+          <p class="why-card__desc">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Bhaavzo",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Our Core Promise"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Why India Trusts Bhaavzo"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "We cut the gimmickry and focus on genuine utility, honest pricing, and trustworthy service."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Pillar",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon/Emoji",
+          "default": "✨"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Useful Products"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Every product is curated to solve a real everyday friction in your home or workspace."
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "feature",
+        "settings": {
+          "icon": "🎯",
+          "title": "Useful Products",
+          "description": "Handpicked, tested problem-solvers that make daily chores faster, tidier, and effortless."
+        }
+      },
+      {
+        "type": "feature",
+        "settings": {
+          "icon": "🏷️",
+          "title": "Fair Pricing (Sahi Bhaav)",
+          "description": "Direct-to-consumer sourcing ensures you get genuine quality without middleman retail inflation."
+        }
+      },
+      {
+        "type": "feature",
+        "settings": {
+          "icon": "💬",
+          "title": "Easy Support",
+          "description": "Instant human assistance via WhatsApp (+91 98765 43210) and email within minutes."
+        }
+      },
+      {
+        "type": "feature",
+        "settings": {
+          "icon": "🛡️",
+          "title": "Secure Checkout & COD",
+          "description": "Pay with peace of mind using Cash on Delivery or 256-bit encrypted UPI & Card gateways."
+        }
+      }
+    ]
+  },
+  "presets": [
+    {
+      "name": "Why Bhaavzo"
+    }
+  ]
+}
+{% endschema %}

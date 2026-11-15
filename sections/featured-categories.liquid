@@ -1,0 +1,124 @@
+<section class="categories-section">
+  <div class="page-width">
+    <div class="section-header">
+      <div class="section-tagline">{{ section.settings.tagline | default: 'Everyday Utility' }}</div>
+      <h2 class="section-title">{{ section.settings.title | default: 'Explore Problem Solvers by Category' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Practical innovations engineered to simplify your daily chores and elevate your living space.' }}</p>
+    </div>
+
+    <div class="categories-grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link }}" class="category-card" {{ block.shopify_attributes }}>
+          <div class="category-card__icon-wrap">
+            <span>{{ block.settings.icon }}</span>
+          </div>
+          <h3 class="category-card__title">{{ block.settings.title }}</h3>
+          <span class="category-card__count">{{ block.settings.items_count }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Sub-heading / Tagline",
+      "default": "Everyday Utility"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Explore Problem Solvers by Category"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Practical innovations engineered to simplify your daily chores and elevate your living space."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_item",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji / Icon",
+          "default": "⚡"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Gadgets"
+        },
+        {
+          "type": "text",
+          "id": "items_count",
+          "label": "Product Count Subtitle",
+          "default": "18+ Smart Devices"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Category Link",
+          "default": "/collections/gadgets"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "category_item",
+        "settings": {
+          "icon": "⚡",
+          "title": "Smart Gadgets",
+          "items_count": "Tech problem-solvers",
+          "link": "/collections/gadgets"
+        }
+      },
+      {
+        "type": "category_item",
+        "settings": {
+          "icon": "🍳",
+          "title": "Kitchen Utility",
+          "items_count": "Time-saving kitchen tools",
+          "link": "/collections/kitchen"
+        }
+      },
+      {
+        "type": "category_item",
+        "settings": {
+          "icon": "📦",
+          "title": "Home Organisation",
+          "items_count": "Space-saving tidying aids",
+          "link": "/collections/home-organisation"
+        }
+      },
+      {
+        "type": "category_item",
+        "settings": {
+          "icon": "💡",
+          "title": "Lighting & Cleaning",
+          "items_count": "Automatic LEDs & helpers",
+          "link": "/collections/lighting"
+        }
+      }
+    ]
+  },
+  "presets": [
+    {
+      "name": "Featured Categories"
+    }
+  ]
+}
+{% endschema %}

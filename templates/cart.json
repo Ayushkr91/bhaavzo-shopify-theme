@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main_cart": {
+      "type": "cart-drawer",
+      "settings": {
+        "show_cross_sell": true
+      }
+    }
+  },
+  "order": [
+    "main_cart"
+  ]
+}

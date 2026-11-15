@@ -1,0 +1,78 @@
+<div class="announcement-bar" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="page-width announcement-bar__content">
+    {% for block in section.blocks %}
+      <div class="announcement-bar__item" {{ block.shopify_attributes }}>
+        <span>{{ block.settings.icon | default: '⚡' }}</span>
+        <span>{{ block.settings.text }}</span>
+      </div>
+      {% unless forloop.last %}
+        <span class="announcement-bar__divider">|</span>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#102A43"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon/Emoji",
+          "default": "⚡"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Announcement Text",
+          "default": "Free Shipping on Orders over ₹999"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement",
+        "settings": {
+          "icon": "🚚",
+          "text": "Free Shipping on Selected Orders"
+        }
+      },
+      {
+        "type": "announcement",
+        "settings": {
+          "icon": "🛡️",
+          "text": "Secure Payments"
+        }
+      },
+      {
+        "type": "announcement",
+        "settings": {
+          "icon": "💵",
+          "text": "COD Available Across India"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

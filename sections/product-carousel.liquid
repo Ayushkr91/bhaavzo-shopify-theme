@@ -1,0 +1,75 @@
+<section class="product-carousel-section">
+  <div class="page-width">
+    <div class="section-header">
+      <div class="section-tagline">{{ section.settings.tagline | default: 'Top Rated by Customers' }}</div>
+      <h2 class="section-title">{{ section.settings.title | default: 'Bhaavzo Best Sellers' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Our most loved smart gadgets and home utility essentials with over 20,000+ satisfied buyers.' }}</p>
+    </div>
+
+    <div class="product-grid">
+      {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+        {% render 'product-card', product_card_product: product %}
+      {% else %}
+        {% comment %} Fallback to sample products if collection is empty in preview {% endcomment %}
+        {% for sample in section.settings.sample_products %}
+          {% render 'product-card', product_card_product: sample %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="/collections/all" class="btn btn--outline btn--lg">
+        Explore All Best Sellers ({{ collections.all.products_count | default: 8 }} Products)
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Best Sellers Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Top Rated by Customers"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Bhaavzo Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Our most loved smart gadgets and home utility essentials with over 20,000+ satisfied buyers."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "default": 8,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers Carousel"
+    }
+  ]
+}
+{% endschema %}

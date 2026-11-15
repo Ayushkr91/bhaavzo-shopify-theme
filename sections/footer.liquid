@@ -1,0 +1,96 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer-grid">
+      <!-- Col 1: Brand Info -->
+      <div class="footer-col">
+        <div class="header__logo" style="margin-bottom: 12px;">
+          <span class="header__logo-text" style="color: #FFFFFF;">
+            Bhaav<span style="color: var(--color-accent);">zo</span>
+          </span>
+        </div>
+        <p class="footer-col__text">
+          <strong>Sahi Bhaav. Smart Ghar.</strong><br>
+          Bhaavzo curates practical, problem-solving smart gadgets and home utility essentials that save Indian families time, space, and effort every day.
+        </p>
+        <div style="display: flex; gap: 10px; margin-top: 14px;">
+          <a href="https://wa.me/919876543210" target="_blank" class="btn btn--primary btn--sm" style="font-size: 0.8rem; padding: 6px 14px;">
+            💬 WhatsApp Us
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Categories -->
+      <div class="footer-col">
+        <h4 class="footer-col__title">Top Categories</h4>
+        <div class="footer-links">
+          <a href="/collections/gadgets" class="footer-link">Smart Gadgets</a>
+          <a href="/collections/kitchen" class="footer-link">Kitchen Utility</a>
+          <a href="/collections/home-organisation" class="footer-link">Home Organisation</a>
+          <a href="/collections/lighting" class="footer-link">Lighting & Cleaning</a>
+          <a href="/collections/all" class="footer-link">All Products</a>
+        </div>
+      </div>
+
+      <!-- Col 3: Customer Care & Policies -->
+      <div class="footer-col">
+        <h4 class="footer-col__title">Policies & Trust</h4>
+        <div class="footer-links">
+          <a href="/pages/shipping-policy" class="footer-link">Shipping Policy (COD)</a>
+          <a href="/pages/refund-policy" class="footer-link">7-Day Returns & Replacement</a>
+          <a href="/pages/privacy-policy" class="footer-link">Privacy Policy</a>
+          <a href="/pages/terms" class="footer-link">Terms of Service</a>
+          <a href="/pages/contact" class="footer-link">Track Your Order</a>
+        </div>
+      </div>
+
+      <!-- Col 4: Contact & Support -->
+      <div class="footer-col">
+        <h4 class="footer-col__title">Get In Touch</h4>
+        <div class="footer-contact-item">
+          <span>📍</span>
+          <span>Bhaavzo Technologies India Pvt Ltd, Mumbai, Maharashtra 400001</span>
+        </div>
+        <div class="footer-contact-item">
+          <span>📞</span>
+          <span>WhatsApp / Helpline: +91 98765 43210</span>
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span>
+          <span>support@bhaavzo.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <span>⏰</span>
+          <span>Mon - Sat: 9:30 AM to 6:30 PM IST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom strip -->
+    <div class="footer-bottom">
+      <div>
+        © {{ 'now' | date: "%Y" }} Bhaavzo. All rights reserved. Sahi Bhaav. Smart Ghar.
+      </div>
+      <div class="payment-trust-icons">
+        <span class="payment-badge">UPI (GPay / PhonePe / Paytm)</span>
+        <span class="payment-badge">RuPay</span>
+        <span class="payment-badge">Visa</span>
+        <span class="payment-badge">Mastercard</span>
+        <span class="payment-badge" style="background-color: var(--color-accent); color: white;">Cash On Delivery (COD)</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "Bhaavzo. All rights reserved."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main_product": {
+      "type": "main-product",
+      "settings": {
+        "show_sticky_atc": true,
+        "show_pincode_checker": true
+      }
+    },
+    "related_products": {
+      "type": "product-carousel",
+      "settings": {
+        "tagline": "You Might Also Like",
+        "title": "Related Everyday Essentials",
+        "subtitle": "Customers who bought this also added these smart helpers to their cart.",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "main_product",
+    "related_products"
+  ]
+}
