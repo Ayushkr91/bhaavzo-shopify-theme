@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_banner": {
@@ -7,7 +16,10 @@
         "headline": "Smart Finds. <span>Better Everyday.</span>",
         "subheadline": "Discover innovative, problem-solving home utility and smart gadgets designed for modern Indian homes. Tested for durability, priced fairly.",
         "primary_cta_text": "Shop Gadgets",
-        "secondary_cta_text": "Shop Home Utility"
+        "primary_cta_link": "",
+        "secondary_cta_text": "Shop Home Utility",
+        "secondary_cta_link": "",
+        "featured_product": ""
       }
     },
     "featured_categories": {
@@ -18,7 +30,8 @@
           "settings": {
             "icon": "⚡",
             "title": "Smart Gadgets",
-            "items_count": "Tech problem-solvers"
+            "items_count": "Tech problem-solvers",
+            "link": ""
           }
         },
         "cat_kitchen": {
@@ -26,7 +39,8 @@
           "settings": {
             "icon": "🍳",
             "title": "Kitchen Utility",
-            "items_count": "Time-saving kitchen tools"
+            "items_count": "Time-saving kitchen tools",
+            "link": ""
           }
         },
         "cat_home": {
@@ -34,7 +48,8 @@
           "settings": {
             "icon": "📦",
             "title": "Home Organisation",
-            "items_count": "Space-saving tidying aids"
+            "items_count": "Space-saving tidying aids",
+            "link": ""
           }
         },
         "cat_lighting": {
@@ -42,7 +57,8 @@
           "settings": {
             "icon": "💡",
             "title": "Lighting & Cleaning",
-            "items_count": "Automatic LEDs & helpers"
+            "items_count": "Automatic LEDs & helpers",
+            "link": ""
           }
         }
       },
@@ -64,6 +80,7 @@
         "tagline": "Top Rated by Customers",
         "title": "Bhaavzo Best Sellers",
         "subtitle": "Our most loved smart gadgets and home utility essentials with over 25,000+ satisfied buyers.",
+        "collection": "",
         "products_to_show": 8
       }
     },
@@ -119,6 +136,7 @@
       "type": "deal-of-the-day",
       "settings": {
         "badge": "Flash Deal of the Day",
+        "deal_product": "",
         "title": "Wireless Portable Blender (400ml)",
         "description": "Equipped with 6 ultra-sharp 3D stainless steel blades, high-speed motor, and USB-C rechargeable battery. Crush ice and fresh fruits effortlessly."
       }

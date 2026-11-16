@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#102A43",
@@ -9,6 +18,59 @@
     "whatsapp_number": "+919876543210",
     "support_email": "support@bhaavzo.com",
     "enable_cart_drawer": true,
-    "show_free_shipping_meter": true
+    "show_free_shipping_meter": true,
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement_9YzdKM": {
+            "type": "announcement",
+            "settings": {
+              "icon": "⚡",
+              "text": "Free Shipping on Orders over ₹999"
+            }
+          }
+        },
+        "block_order": [
+          "announcement_9YzdKM"
+        ],
+        "settings": {
+          "bg_color": "#102a43",
+          "text_color": "#ffffff"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "tagline_text": "Sahi Bhaav. Smart Ghar.",
+          "support_phone": "Helpline: +91 98765 43210"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "about_text": "Bhaavzo curates practical, problem-solving smart gadgets and home utility essentials that save Indian families time, space, and effort every day.",
+          "whatsapp_url": "https://wa.me/919876543210",
+          "col2_title": "Top Categories",
+          "col2_menu": "",
+          "col3_title": "Policies & Trust",
+          "col3_menu": "",
+          "address": "Bhaavzo Retail, Mumbai, Maharashtra 400001",
+          "helpline": "Helpline: +91 98765 43210",
+          "email": "support@bhaavzo.com",
+          "show_cod_badge": true
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "show_cross_sell": false,
+          "cross_sell_product": "",
+          "show_cod_pill": true
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
